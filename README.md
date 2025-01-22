@@ -74,6 +74,70 @@ Fournir un dépôt centralisé avec toutes les sources, exécutables, et documen
 
 
 ## 5) Choix techniques
+### 5.1) Infrastructure réseau
+#### a. Matériel réseau
+Switchs managés : pour un contrôle précis du réseau et la segmentation via VLAN.
+Routeurs :
+Matériel dédié (Cisco, MikroTik, Ubiquiti, etc.).
+Routeurs logiciels (pfsense, OPNsense, ou VyOS sur des serveurs).
+Points d'accès WiFi professionnels (Ubiquiti UniFi, Cisco Meraki, etc.) : pour remplacer la box et répéteurs actuels.
+Firewall matériel : pour renforcer la sécurité réseau.
+#### b. Réseau local (LAN)
+Segmentation par VLAN pour isoler les départements.
+Planification des sous-réseaux IP :
+Exemple : 10.10.8.0/24 -> Subnetting pour les VLANs.
+Réservation d'adresses IP fixes pour les serveurs et équipements critiques.
+Activation de Spanning Tree Protocol (STP) pour éviter les boucles réseau.
+#### c. Sécurité réseau
+Pare-feu matériel/logiciel : pour contrôler les flux entrants/sortants.
+Contrôle d'accès réseau (NAC) : authentification des utilisateurs via RADIUS.
+VPN : pour une gestion sécurisée à distance des équipements réseau.
+### 5.2 Infrastructure serveur
+#### a. Serveurs physiques ou virtuels
+Utilisation de l'hyperviseur Proxmox pour déployer :
+Contrôleurs de domaine (Windows Server).
+Serveurs de fichiers (Samba, Nextcloud).
+Serveurs de sauvegarde (Bareos, Veeam).
+Serveurs d’applications métiers.
+#### b. Services réseau essentiels
+Active Directory (AD) :
+Gestion centralisée des utilisateurs et groupes.
+Application de politiques de sécurité via GPO.
+DHCP : gestion des adresses IP dynamiques.
+DNS interne : résolution des noms locaux et amélioration des performances réseau.
+#### c. Stockage
+Remplacement du NAS grand public par :
+Un NAS professionnel (Synology, QNAP) avec RAID pour redondance.
+Une solution SAN ou iSCSI pour un stockage centralisé.
+###  5.3 Sécurité
+#### a. Authentification
+Passage des PC en domaine (via Active Directory).
+Authentification forte avec :
+Utilisation de mots de passe complexes et changement régulier.
+Intégration d’une authentification multi-facteurs (MFA).
+#### b. Protection des données
+Sauvegardes régulières avec :
+Stratégies de rétention (quotidienne, hebdomadaire, mensuelle).
+Stockage des sauvegardes hors site ou dans le cloud.
+Mise en place de politiques de confidentialité des données.
+###  5.4 Communication
+#### a. Messagerie
+Migration vers une solution sécurisée si nécessaire (Microsoft 365, Google Workspace).
+Renforcement de la sécurité des comptes emails :
+MFA obligatoire.
+DMARC, DKIM et SPF configurés.
+#### b. Téléphonie
+Transition vers une solution VoIP pour réduire la dépendance à des téléphones fixes classiques.
+Centralisation avec un PABX logiciel (Asterisk, 3CX).
+### 5.5 Nomadisme et mobilité
+Préparer une infrastructure prête pour le télétravail :
+VPN sécurisé pour les connexions à distance.
+Portails d’accès distant avec authentification forte.
+Ordinateurs équipés pour un usage mixte bureau/domicile.
+### 5.6 Outils de suivi et documentation.
+Stockage de la documentation dans un dépôt GitHub ou un serveur interne (Wiki).
+
+
 ## 6) Difficultés / Solutions
 ## 7) Suggestions d'amélioration
 ## 8) Conclusion
