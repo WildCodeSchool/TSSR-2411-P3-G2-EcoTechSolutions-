@@ -70,7 +70,19 @@ Fournir un dépôt centralisé avec toutes les sources, exécutables, et documen
 
 | Sprint                               | Product Owner (PO) | Scrum Master (SM) | Développeurs               | Objectifs                                                                                                                                     |
 |--------------------------------------|--------------------|-------------------|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Sprint1  | Camille              | Maxime           | Adel, Angel et Benjamin    | - Création du schéma réseau prévisionnel, Documentation du projet, mise en place d'une convention de nommage||-----------------------------------------------------------------------------------------------------------------------------------------------|
+| Sprint 1                             | Maxime             | Benjamin          | Camille, Angel et Adel    | - Création du schéma réseau prévisionnel, documentation du projet, mise en place d'une convention de nommage.                                 |
+| Sprint 2                             | Benjamin           | Camille           | Maxime, Angel et Adel     | - Identification des besoins matériels (serveurs, routeurs, switchs, etc.) et logiciels.                                                      |
+| Sprint 3                             | Camille            | Angel             | Maxime, Benjamin et Adel  | - Installation et configuration initiale des serveurs (Windows et Linux).                                                                     |
+| Sprint 4                             | Angel              | Adel              | Maxime, Benjamin et Camille| - Configuration réseau de base : VLANs, sous-réseaux et tables de routage.                                                                    |
+| Sprint 5                             | Adel               | Maxime            | Benjamin, Angel et Camille| - Mise en place du DHCP, DNS et des configurations IP pour les postes utilisateurs.                                                           |
+| Sprint 6                             | Maxime             | Benjamin          | Camille, Angel et Adel    | - Intégration des PC dans un domaine (Active Directory), tests de connectivité et ajustements.                                                |
+| Sprint 7                             | Benjamin           | Camille           | Maxime, Angel et Adel     | - Sécurisation de l'infrastructure : gestion des droits utilisateurs, création des groupes, mise en place des sauvegardes.                    |
+| Sprint 8                             | Camille            | Angel             | Maxime, Benjamin et Adel  | - Configuration des outils de monitoring (Zabbix, Nagios ou équivalent) pour superviser les performances réseau.                              |
+| Sprint 9                             | Angel              | Adel              | Maxime, Benjamin et Camille| - Mise en place d’un serveur de fichiers et d’un système de stockage centralisé (NAS).                                                        |
+| Sprint 10                            | Adel               | Maxime            | Benjamin, Angel et Camille| - Finalisation des tests de sécurité réseau (firewalls, segmentation, accès distant sécurisé).                                                |
+| Sprint 11                            | Maxime             | Benjamin          | Camille, Angel et Adel    | - Documentation finale (guide utilisateur, configuration réseau et maintenance) et formation des utilisateurs internes.                        |
+| Sprint 12                            | Benjamin           | Camille           | Maxime, Angel et Adel     | - Présentation finale du projet (bilan des objectifs atteints, démonstration de l'infrastructure fonctionnelle).                              |
+
 
 
 ## 5) Choix techniques
