@@ -41,8 +41,66 @@ Un sous-réseau séparé est réservé pour tous les serveurs nécessaires à l'
 
 ---
 
-Avec cette structure, le réseau est bien segmenté, et l'ajout d'autres serveurs est simple grâce à la réserve disponible dans le sous-réseau dédié.
+### Distribution des adresses par département/service
 
+#### 1. **Communication**
+- **Sous-réseau** : `10.10.8.0/26`
+- **Plage utilisable** : `10.10.8.2 - 10.10.8.62`
+- **Attribution** :
+  - **Postes** : `10.10.8.2 - 10.10.8.10`
+  - **Switch/DHCP** : `10.10.8.61`
+
+#### 2. **Développement**
+- **Sous-réseau** : `10.10.8.64/26`
+- **Plage utilisable** : `10.10.8.65 - 10.10.8.126`
+- **Attribution** :
+  - **Postes** : `10.10.8.66 - 10.10.8.80`
+  - **Switch/DHCP** : `10.10.8.125`
+
+#### 3. **Direction**
+- **Sous-réseau** : `10.10.8.128/27`
+- **Plage utilisable** : `10.10.8.129 - 10.10.8.158`
+- **Attribution** :
+  - **Postes** : `10.10.8.130 - 10.10.8.131`
+  - **Switch** : `10.10.8.157`
+
+#### 4. **Ressources Humaines (RH)**
+- **Sous-réseau** : `10.10.8.160/28`
+- **Plage utilisable** : `10.10.8.161 - 10.10.8.174`
+- **Attribution** :
+  - **Postes** : `10.10.8.162 - 10.10.8.164`
+  - **Switch** : `10.10.8.173`
+
+#### 5. **DSI**
+- **Sous-réseau** : `10.10.8.176/28`
+- **Plage utilisable** : `10.10.8.177 - 10.10.8.190`
+- **Attribution** :
+  - **Postes** : `10.10.8.178 - 10.10.8.180`
+  - **Switch** : `10.10.8.189`
+
+#### 6. **Finance et Comptabilité**
+- **Sous-réseau** : `10.10.8.192/27`
+- **Plage utilisable** : `10.10.8.193 - 10.10.8.222`
+- **Attribution** :
+  - **Postes** : `10.10.8.194 - 10.10.8.201`
+  - **Switch** : `10.10.8.221`
+
+#### 7. **Commercial**
+- **Sous-réseau** : `10.10.8.224/27`
+- **Plage utilisable** : `10.10.8.225 - 10.10.8.254`
+- **Attribution** :
+  - **Postes** : `10.10.8.226 - 10.10.8.240`
+  - **Switch** : `10.10.8.253`
+
+#### 8. **Serveurs**
+- **Sous-réseau** : `10.10.9.0/28`
+- **Plage utilisable** : `10.10.9.1 - 10.10.9.14`
+- **Attribution** :
+  - Serveur DNS : `10.10.9.2`
+  - Serveur Web : `10.10.9.3`
+  - Serveur Fichiers : `10.10.9.4`
+
+---
 
 ## 4) Matériels
 ## 5) Table de Routage
