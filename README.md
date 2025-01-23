@@ -20,19 +20,19 @@ EcoTech Solutions s'engage fermement à promouvoir une économie verte. L'entrep
 ### Organisation interne
 Aujourd'hui, EcoTech Solutions compte 54 employés permanents répartis dans sept départements principaux :
 
-#### Direction
+#### Direction = 2
 
-#### Ressources Humaines
+#### Ressources Humaines = 3
 
-#### Finances et Comptabilité
+#### Finances et Comptabilité = 8
 
-#### Communication
+#### Communication = 9
 
-#### DSI
+#### DSI = 3
 
-#### Développement
+#### Développement = 14
 
-#### Commercial
+#### Commercial = 15
 
 
 Des experts externes collaborent à temps partiel ou ponctuellement avec ces départements, apportant leurs compétences pour répondre à des besoins spécifiques.
@@ -92,7 +92,6 @@ Switchs managés : pour un contrôle précis du réseau et la segmentation via V
 Routeurs :
 Matériel dédié (Cisco, MikroTik, Ubiquiti, etc.).
 Routeurs logiciels (pfsense, OPNsense, ou VyOS sur des serveurs).
-Points d'accès WiFi professionnels (Ubiquiti UniFi, Cisco Meraki, etc.) : pour remplacer la box et répéteurs actuels.
 Firewall matériel : pour renforcer la sécurité réseau.
 #### b. Réseau local (LAN)
 Segmentation par VLAN pour isoler les départements.
@@ -102,7 +101,6 @@ Réservation d'adresses IP fixes pour les serveurs et équipements critiques.
 Activation de Spanning Tree Protocol (STP) pour éviter les boucles réseau.
 #### c. Sécurité réseau
 Pare-feu matériel/logiciel : pour contrôler les flux entrants/sortants.
-Contrôle d'accès réseau (NAC) : authentification des utilisateurs via RADIUS.
 VPN : pour une gestion sécurisée à distance des équipements réseau.
 ### 5.2 Infrastructure serveur
 #### a. Serveurs physiques ou virtuels
@@ -110,7 +108,6 @@ Utilisation de l'hyperviseur Proxmox pour déployer :
 Contrôleurs de domaine (Windows Server).
 Serveurs de fichiers (Samba, Nextcloud).
 Serveurs de sauvegarde (Bareos, Veeam).
-Serveurs d’applications métiers.
 #### b. Services réseau essentiels
 Active Directory (AD) :
 Gestion centralisée des utilisateurs et groupes.
@@ -120,7 +117,6 @@ DNS interne : résolution des noms locaux et amélioration des performances rés
 #### c. Stockage
 Remplacement du NAS grand public par :
 Un NAS professionnel (Synology, QNAP) avec RAID pour redondance.
-Une solution SAN ou iSCSI pour un stockage centralisé.
 ###  5.3 Sécurité
 #### a. Authentification
 Passage des PC en domaine (via Active Directory).
@@ -135,12 +131,6 @@ Mise en place de politiques de confidentialité des données.
 ###  5.4 Communication
 #### a. Messagerie
 Migration vers une solution sécurisée si nécessaire (Microsoft 365, Google Workspace).
-Renforcement de la sécurité des comptes emails :
-MFA obligatoire.
-DMARC, DKIM et SPF configurés.
-#### b. Téléphonie
-Transition vers une solution VoIP pour réduire la dépendance à des téléphones fixes classiques.
-Centralisation avec un PABX logiciel (Asterisk, 3CX).
 ### 5.5 Nomadisme et mobilité
 Préparer une infrastructure prête pour le télétravail :
 VPN sécurisé pour les connexions à distance.
