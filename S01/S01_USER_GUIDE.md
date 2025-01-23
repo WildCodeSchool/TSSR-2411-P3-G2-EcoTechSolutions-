@@ -33,11 +33,6 @@ Un sous-réseau séparé est réservé pour tous les serveurs nécessaires à l'
 - **Box FAI (Passerelle principale)** : `10.10.8.1`
 - **NAS** : `10.10.8.63`
 - **Répéteurs WiFi** : `10.10.8.62`, `10.10.8.126`
-- **Serveurs réseau (sous-réseau dédié)** : `10.10.9.0/28`
-  - Exemple :
-    - Serveur de domaine (AD/DNS) : `10.10.9.2`
-    - Serveur web (HTTP/HTTPS) : `10.10.9.3`
-    - Serveur de fichiers (NAS avancé) : `10.10.9.4`
 
 ---
 
