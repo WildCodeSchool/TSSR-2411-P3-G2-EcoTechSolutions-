@@ -1,6 +1,72 @@
 # S01 USER GUIDE
 ## 1) Schéma réseau
 ## 2) Convention de nommage
+### **1. Matériel et dispositifs réseau**
+| Élément                          | Format de nommage                          | Exemple                          |
+|----------------------------------|--------------------------------------------|----------------------------------|
+| **Serveurs**                     | `SRV-<OS>-<Rôle>-<Numéro>`                 | `SRV-WIN-AD-01` <br> `SRV-LNX-DNS-01` |
+| **Routeurs**                     | `RTR-<Numéro>`                             | `RTR-01`                        |
+| **Switchs**                      | `SW-<Numéro>`                              | `SW-01`                         |
+| **Points d'accès Wi-Fi**         | `AP-<Numéro>`                              | `AP-01`                         |
+| **NAS**                          | `NAS-<Numéro>`                             | `NAS-01`                        |
+
+
+### **2. Postes de travail**
+| Élément                          | Format de nommage                          | Exemple                          |
+|----------------------------------|--------------------------------------------|----------------------------------|
+| **Postes fixes (PC)**            | `PC-<Service>-<Numéro>`                    | `PC-DEV-01`                     |
+| **Postes portables (Laptops)**   | `LT-<Service>-<Numéro>`                    | `LT-COM-01`                     |
+
+
+### **3. Utilisateurs**
+| Élément                          | Format de nommage                          | Exemple                          |
+|----------------------------------|--------------------------------------------|----------------------------------|
+| **Nom d’utilisateur local**      | `<Prénom>.<Nom>`                           | `jean.dupont`                   |
+| **Compte administrateur local**  | `Admin-<Service>`                          | `Admin-DEV`                     |
+| **Compte administrateur global** | `AdminEcoTech`                             | `AdminEcoTech`                  |
+
+
+### **4. Groupes**
+| Élément                          | Format de nommage                          | Exemple                          |
+|----------------------------------|--------------------------------------------|----------------------------------|
+| **Groupes AD par service**       | `G-<Service>`                              | `G-DSI`                         |
+| **Groupes AD par projet**        | `G-Proj-<NomProjet>`                       | `G-Proj-NouvelleInfra`          |
+
+### **5. Adresses IP**
+| Élément                          | Format de nommage                          | Exemple                          |
+|----------------------------------|--------------------------------------------|----------------------------------|
+| **Plage IP Serveurs**            | `10.10.9.2` à `10.10.9.14`                 | `10.10.9.2`                     |
+| **Plage IP Postes de travail**   | `10.10.8.2` à `10.10.8.62`                 | `10.10.8.2`                   |
+
+
+### **6. Répertoires et fichiers**
+| Élément                          | Format de nommage                          | Exemple                          |
+|----------------------------------|--------------------------------------------|----------------------------------|
+| **Répertoires projet**           | `Proj_<NomProjet>`                         | `Proj_NouvelleInfra`            |
+| **Fichiers de configuration**    | `<Équipement>_Conf_<Date>`                 | `SRV-AD-01_Conf_20250122.txt`   |
+| **Sauvegardes**                  | `Backup_<Équipement>_<Date>`               | `Backup_SRV-AD-01_20250122.bak` |
+
+### **7. Autres identifiants**
+| Élément                          | Format de nommage                          | Exemple                          |
+|----------------------------------|--------------------------------------------|----------------------------------|
+| **SSID Wi-Fi**                   | `EcoTech-<Service>`                        | `EcoTech-DEV`                   |
+| **Identifiants de VLAN**         | `VLAN-<Service>`                           | `VLAN-COM`                      |
+
+
+### **8. Cas particuliers**
+1. **Départements multi-sites (future évolution)** :
+   - Ajouter un identifiant de site : `Bordeaux` devient `BOR`.
+   - Exemple pour un serveur : `SRV-WIN-AD-BOR-01`.
+2. **Équipements spécifiques (imprimantes, téléphones IP, etc.)** :
+   - Ajouter un préfixe en fonction de l'équipement : `PRT-01` pour une imprimante, `TEL-01` pour un téléphone IP.
+
+
+### **9. Rappel des objectifs**
+1. **Uniformité** : Tous les noms respectent une structure claire et identifiable.
+2. **Simplicité** : Les noms sont faciles à lire et à retenir.
+3. **Scalabilité** : La convention permet d’ajouter de nouveaux services ou équipements sans confusion.
+
+
 ## 3) Adressage
 ### Réseau global
 - **Plage IP** : `10.10.8.0/24`
