@@ -1,5 +1,8 @@
 # S01 USER GUIDE
 ## 1) Schéma réseau
+| ![Infra actuelle](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/R%C3%A9seau/InfraActuelle_EcoTechSolutions.png) | ![Image 2](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/R%C3%A9seau/Infra_%C3%A0_venir.png) |
+|-------------------------------|-------------------------------|
+
 ## 2) Convention de nommage
 
 ### 1. Les Compte utilisateurs
