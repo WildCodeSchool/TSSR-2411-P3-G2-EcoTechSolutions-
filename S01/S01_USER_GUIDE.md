@@ -73,6 +73,32 @@ AP : Point d’accès Wi-Fi
 - Les exceptions doivent être documentées et justifiées pour garantir la traçabilité.
 
 ---
+
+## Répartition des serveurs, NAS, pare-feu et autres équipements réseau
+
+### Sous-réseau pour les équipements techniques : `10.10.8.0/24`  
+Ce sous-réseau regroupe les adresses pour les équipements critiques (NAS, serveurs, routeurs, pare-feu, etc.).
+
+| **Équipement**                | **Adresse attribuée** |
+|--------------------------------|-----------------------|
+| **Serveur DNS primaire**       | `10.10.8.2`          |
+| **Serveur DNS secondaire**     | `10.10.8.3`          |
+| **Serveur Web principal**      | `10.10.8.4`          |
+| **Serveur Web secondaire**     | `10.10.8.5`          |
+| **Serveur NAS principal**      | `10.10.8.10`         |
+| **Serveur NAS secondaire**     | `10.10.8.11`         |
+| **Pare-feu pfSense principal** | `10.10.8.1`          |
+| **Pare-feu pfSense secondaire**| `10.10.8.6`          |
+| **Passerelle principale (Box FAI)** | `10.10.8.254` |
+
+---
+
+## Notes supplémentaires  
+- Les adresses IP sont planifiées avec suffisamment d’espace pour permettre une extension future.  
+- Chaque département a son propre sous-réseau en /24 pour une gestion plus simple des postes.  
+- Les équipements techniques critiques sont regroupés dans un sous-réseau dédié pour faciliter la maintenance et la sécurité (`10.10.8.0/24`).  
+- Le pare-feu principal (pfSense) est positionné sur la passerelle principale (`10.10.8.1`) pour assurer un contrôle strict du trafic réseau.
+
   
 ## 3) Matériel et dispositifs réseau**
 
