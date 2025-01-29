@@ -10,13 +10,13 @@
 
   - Ouvrir Gestionnaire de serveur.
 
-  - Aller dans Gérer > Ajouter des rôles et fonctionnalités.
+  - Aller dans **Gérer** > Ajouter des **rôles et fonctionnalités**.
 
-  - Sélectionner Installation basée sur un rôle ou une fonctionnalité et cliquer sur Suivant.
+  - Sélectionner **Installation basée sur un rôle ou une fonctionnalité** et cliquer sur Suivant.
 
   - Sélectionner le serveur que vous avez crée et cliquer sur Suivant.
 
-  - Cocher Services de domaine Active Directory (AD-DS), Serveur DNS, et Serveur DHCP.
+  - Cocher **Services de domaine Active Directory** (AD-DS), **Serveur DNS**, et **Serveur DHCP.**
 
   - Ajouter les fonctionnalités requises lorsqu'elles sont demandées.
 
@@ -24,17 +24,17 @@
 
 1.2 Promotion en contrôleur de domaine
 
-  - Dans Gestionnaire de serveur, cliquer sur la notification indiquant Configuration requise pour AD-DS.
+  - Dans **Gestionnaire de serveur**, cliquer sur la notification indiquant Configuration requise pour AD-DS.
 
-  - Sélectionner Promouvoir ce serveur en contrôleur de domaine.
+  - Sélectionner **Promouvoir ce serveur en contrôleur de domaine**.
 
-  - Choisir Ajouter une nouvelle forêt, entrer EcoTechSolution.local comme nom de domaine racine, et cliquer sur Suivant.
+  - Choisir Ajouter une nouvelle forêt, entrer un nom pour votre forêt par exemple corp.EcoTechSolution.com comme nom de domaine racine, et cliquer sur Suivant.
 
   - Définir un mot de passe pour le mode de récupération des services d'annuaire (DSRM) et cliquer sur Suivant.
 
   - Laisser les paramètres par défaut pour DNS et cliquer sur Suivant.
 
-  - Vérifier le nom NetBIOS (ECOTECH) et cliquer sur Suivant.
+  - Vérifier le nom NetBIOS et cliquer sur Suivant.
 
   - Vérifier les chemins d'installation, puis cliquer sur Suivant.
 
@@ -44,15 +44,15 @@
 
 1.3 Configuration DHCP
 
-  - Ouvrir Gestionnaire DHCP.
+  - Ouvrir **Gestionnaire DHCP**.
 
-  - Sélectionner votre serveur, puis IPv4.
+  - Sélectionner votre serveur, puis **IPv4**.
 
-  - Cliquer sur Nouvelle étendue et suivre l'assistant :
+  - Cliquer sur **Nouvelle étendue** et suivre l'assistant :
 
   - Nom : (Entrer le nom de votre étendue)
 
-  - Adresse de début : rentrer votre adresse IP. Par exemple : 192.168.1.100 (Les adresses suivates sont à modifier selon vos préférences)
+  - Adresse de début : rentrer votre adresse IP. Par exemple : 192.168.1.100 (Les adresses suivantes sont à modifier selon vos préférences)
 
   - Adresse de fin : Par exemple : 192.168.1.200
 
@@ -75,15 +75,15 @@ Activer l'étendue et autoriser DHCP dans Active Directory.
 
   - Configurer l'adresse IP et le nom d'hôte.
 
-  - Ouvrir Gestionnaire de serveur sur SRV-AD-GUI.
+  - Ouvrir **Gestionnaire de serveur** sur votre serveur GUI crée précédement.
 
   - Ajouter votre serveur à la gestion à distance.
 
-  - Depuis Gestionnaire de serveur, aller dans Ajouter des rôles et fonctionnalités.
+  - Depuis Gestionnaire de serveur, aller dans **Ajouter des rôles et fonctionnalités**.
 
-  - Sélectionner Installation basée sur un rôle ou une fonctionnalité.
+  - Sélectionner **Installation basée sur un rôle ou une fonctionnalité**.
 
-  - Sélectionner SRV-AD-CORE et ajouter Services de domaine Active Directory (AD-DS).
+  - Sélectionner votre serveur core et ajouter **Services de domaine Active Directory** (AD-DS).
 
   - Attendre l'installation complète.
 
@@ -105,21 +105,21 @@ Activer l'étendue et autoriser DHCP dans Active Directory.
 
   - Redémarrer le serveur.
 
-  - Depuis votre serveur, ouvrir Gestionnaire de serveur, aller dans AD-DS, et ajouter SRV-AD-CORE comme Contrôleur de domaine supplémentaire.
+  - Depuis votre serveur, ouvrir Gestionnaire de serveur, aller dans AD-DS, et ajouter votre serveur core comme Contrôleur de domaine supplémentaire.
 
   - Sélectionner Ajouter un contrôleur de domaine à un domaine existant.
 
   - Laisser les options par défaut et terminer l'assistant.
 
-  - Attendre le redémarrage automatique de SRV-AD-CORE.
+  - Attendre le redémarrage automatique.
 
 3. Configuration de la réplication entre les DC
 
 3.1 Vérification de la réplication
 
-  - Ouvrir Outils > Sites et services Active Directory.
+  - Ouvrir **Outils > Sites et services Active Directory**.
 
-  - Déployer Sites > Default-First-Site-Name > Servers.
+  - Déployer **Sites > Default-First-Site-Name > Servers.**
 
   - Vérifier que votre serveur GUI et votre serveur core créer dans les etapes précédentes et apparaissent.
 
@@ -135,11 +135,11 @@ Activer l'étendue et autoriser DHCP dans Active Directory.
 
   - Ouvrir Invite de commandes et exécuter :
 
-repadmin /showrepl
+*repadmin /showrepl*
 
-repadmin /replsummary
+*repadmin /replsummary*
 
-Get-ADReplicationPartnerMetadata -Target "EcoTechSolution.local" -Partition *
+*Get-ADReplicationPartnerMetadata -Target "EcoTechSolution.local" -Partition*
 
   - Vérifier que toutes les connexions sont réussies.
 
@@ -149,7 +149,7 @@ Get-ADReplicationPartnerMetadata -Target "EcoTechSolution.local" -Partition *
 
   - Ouvrir Services.msc sur vos serveur GUI et core.
 
-  - Vérifier que les services ADWS, DNS, DHCPServer sont en état En cours d'exécution.
+  - Vérifier que les services ADWS, DNS, DHCP Server sont en état En cours d'exécution.
 
-  - La configuration du domaine créer précédement ( par exemple on avait créer corpEcoTechSolution.com plus haut) avec deux contrôleurs de domaine en réplication complète est terminée.
+  - La configuration du domaine créer précédement (Par exemple on avait créer corpEcoTechSolution.com plus haut) avec deux contrôleurs de domaine en réplication complète est terminée.
 
