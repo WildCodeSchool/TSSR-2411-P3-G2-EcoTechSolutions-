@@ -81,8 +81,8 @@ Ce sous-réseau regroupe les adresses pour les équipements critiques (NAS, serv
 
 | **Équipement**                | **Adresse attribuée** |
 |--------------------------------|-----------------------|
-| **Serveur DNS primaire**       | `10.10.8.2`          |
-| **Serveur DNS secondaire**     | `10.10.8.3`          |
+| **Serveur AD-DS primaire**       | `10.10.8.2`          |
+| **Serveur AD-DS secondaire**     | `10.10.8.3`          |
 | **Serveur Web principal**      | `10.10.8.4`          |
 | **Serveur Web secondaire**     | `10.10.8.5`          |
 | **Serveur NAS principal**      | `10.10.8.10`         |
