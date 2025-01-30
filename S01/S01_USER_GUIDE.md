@@ -83,8 +83,8 @@ Ce sous-réseau regroupe les adresses pour les équipements critiques (NAS, serv
 |--------------------------------|-----------------------|
 | **Serveur AD-DS primaire**       | `10.10.8.2`          |
 | **Serveur AD-DS secondaire**     | `10.10.8.3`          |
-| **Serveur Web principal**      | `10.10.8.4`          |
-| **Serveur Web secondaire**     | `10.10.8.5`          |
+| **Serveur Debian CLI**      | `10.10.8.4`          |
+| **Serveur Web principal**     | `10.10.8.5`          |
 | **Serveur NAS principal**      | `10.10.8.10`         |
 | **Serveur NAS secondaire**     | `10.10.8.11`         |
 | **Pare-feu pfSense principal** | `10.10.8.1`          |
