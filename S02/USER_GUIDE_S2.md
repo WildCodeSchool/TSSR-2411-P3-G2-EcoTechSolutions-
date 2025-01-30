@@ -3,6 +3,7 @@
 1. [L'AD Windows Server 2022 GUI avec les rôles AD-DS, DHCP, DNS](#server)
 2. [L'AD Windows Core 2022 Core avec le rôle AD-DS](#core)
 3. [Créer une Unité d'organisation sur AD](#ou)
+4. [Création d'un Serveur Linux Debian en CLI](#debian)
 
 ### 1- L'AD Windows Server GUI
 <span id="server"></span>
@@ -220,4 +221,106 @@ Get-ADOrganizationalUnit -Filter "Name -eq 'NomDeVotreOU'"
 
 
 ---
+### 4- Création d'un Serveur Linux Debian en CLI
+<span id="debian"></span>
+
+## Prérequis
+- Un serveur Debian installé avec un accès root.
+- Un contrôleur de domaine Active Directory fonctionnel.
+- Un accès réseau entre le serveur Debian et le domaine AD.
+
+## Étape 1 : Mise à jour du système
+Mettez à jour le système Debian avant toute configuration :
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+## Étape 2 : Installation des paquets nécessaires
+Installez les outils nécessaires pour joindre le domaine AD :
+
+```bash
+sudo apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli samba-common-bin oddjob oddjob-mkhomedir packagekit
+```
+
+## Étape 3 : Découverte et jonction du domaine
+Recherchez le domaine Active Directory :
+
+```bash
+realm discover EcoTechSolution.com
+```
+
+Rejoignez le domaine :
+
+```bash
+sudo realm join EcoTechSolution.com --user=Administrateur
+```
+
+Vérifiez l'adhésion au domaine :
+
+```bash
+realm list
+```
+
+## Étape 4 : Configuration de l'authentification
+Modifiez `/etc/sssd/sssd.conf` pour configurer SSSD :
+
+```bash
+sudo nano /etc/sssd/sssd.conf
+```
+
+Ajoutez/modifiez les paramètres suivants :
+
+```ini
+[sssd]
+domains = EcoTechSolution.com
+config_file_version = 2
+services = nss, pam
+
+[domain/EcoTechSolution.com]
+ad_domain = EcoTechSolution.com
+krb5_realm = ECOTECHSOLUTION.COM
+realmd_tags = manages-system joined-with-samba
+id_provider = ad
+auth_provider = ad
+access_provider = ad
+cache_credentials = true
+krb5_store_password_if_offline = true
+use_fully_qualified_names = False
+default_shell = /bin/bash
+fallback_homedir = /home/%u
+ldap_id_mapping = true
+```
+
+Redémarrez le service SSSD :
+
+```bash
+sudo systemctl restart sssd
+```
+
+## Étape 5 : Autoriser un groupe AD pour SSH
+Modifiez le fichier `/etc/ssh/sshd_config` :
+
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+
+Ajoutez la ligne suivante à la fin du fichier pour permettre l'accès SSH aux administrateurs du domaine :
+
+```ini
+AllowGroups "Administrateurs@EcoTechSolution.com"
+```
+
+Redémarrez le service SSH :
+
+```bash
+sudo systemctl restart sshd
+```
+
+## Étape 6 : Vérification de l'accès
+Testez la connexion SSH avec un utilisateur du groupe autorisé :
+
+```bash
+ssh utilisateur@serveur-debian
+```
 
