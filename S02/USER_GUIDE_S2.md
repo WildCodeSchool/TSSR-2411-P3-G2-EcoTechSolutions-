@@ -2,9 +2,14 @@
 
 1. [L'AD Windows Server 2022 GUI avec les rôles AD-DS, DHCP, DNS](#server)
 2. [L'AD Windows Core 2022 Core avec le rôle AD-DS](#core)
+3. [Créer une Unité d'organisation sur AD](#ou)
 
 ### 1- L'AD Windows Server GUI
 <span id="server"></span>
+
+<br>
+
+---
 
 1.1 Installation des rôles :
 
@@ -21,6 +26,8 @@
   - Ajouter les fonctionnalités requises lorsqu'elles sont demandées.
 
   - Cliquer sur Suivant jusqu'à l'installation et attendre la fin.
+
+<br>
 
 1.2 Promotion en contrôleur de domaine
 
@@ -42,6 +49,8 @@
 
   - Le serveur redémarrera automatiquement après l'installation.
 
+<br>
+
 1.3 Configuration DHCP
 
   - Ouvrir **Gestionnaire DHCP**.
@@ -61,8 +70,11 @@
   - Passerelle : Par exemple  192.168.1.1
 
   - Serveur DNS : Par exemple :192.168.1.10
+  - Activer l'étendue et autoriser DHCP dans Active Directory.
 
-Activer l'étendue et autoriser DHCP dans Active Directory.
+<br>
+
+---
 
 ### 2 - L'AD Windows Core
 <span id="core"></span>
@@ -86,6 +98,8 @@ Activer l'étendue et autoriser DHCP dans Active Directory.
   - Sélectionner votre serveur core et ajouter **Services de domaine Active Directory** (AD-DS).
 
   - Attendre l'installation complète.
+
+<br>
 
 2.2 Promotion en contrôleur de domaine
 
@@ -113,6 +127,8 @@ Activer l'étendue et autoriser DHCP dans Active Directory.
 
   - Attendre le redémarrage automatique.
 
+<br>
+
 3. Configuration de la réplication entre les DC
 
 3.1 Vérification de la réplication
@@ -125,11 +141,15 @@ Activer l'étendue et autoriser DHCP dans Active Directory.
 
   - Vérifier les connexions de réplication sous NTDS Settings.
 
+<br>
+
 3.2 Forcer une synchronisation
 
   - Depuis **Sites et services Active Directory**, cliquer droit sur votre serveur en GUI > Tout répliquer.
 
   - Répéter l'opération sur votre serveur core.
+
+<br>
 
 3.3 Vérification de l'état de la réplication
 
@@ -139,9 +159,11 @@ Activer l'étendue et autoriser DHCP dans Active Directory.
 
 *repadmin /replsummary*
 
-*Get-ADReplicationPartnerMetadata -Target "EcoTechSolution.local" -Partition*
+*Get-ADReplicationPartnerMetadata -Target "corp.EcoTechSolution.com" -Partition*
 
   - Vérifier que toutes les connexions sont réussies.
+
+<br>
 
 4. Vérifications finales
 
@@ -151,5 +173,51 @@ Activer l'étendue et autoriser DHCP dans Active Directory.
 
   - Vérifier que les services ADWS, DNS, DHCP Server sont en état En cours d'exécution.
 
+  <br>
+
   - La configuration du domaine créer précédement (Par exemple on avait créer corpEcoTechSolution.com plus haut) avec deux contrôleurs de domaine en réplication complète est terminée.
+
+---
+### 3 - Création d'une OU via la console Active Directory Users and Computers
+<span id="ou"></span>
+
+
+1. **Ouvrir la console** :
+   - Connectez-vous au serveur Active Directory.
+   - Ouvrez la console "Active Directory Users and Computers" (ADUC) en exécutant `dsa.msc` via "Exécuter" (`Win + R`).
+
+  <br>
+
+2. **Créer l'OU** :
+   - Naviguez vers le domaine où vous souhaitez créer l'OU.
+   - Faites un clic droit sur le domaine ou un conteneur existant.
+   - Sélectionnez **Nouveau** > **Unité d'organisation**.
+   - Entrez le nom de l'OU et validez avec **OK**.
+
+ <br>
+
+### Création d'une OU via PowerShell
+
+Vous pouvez également créer une OU avec PowerShell :
+
+```powershell
+New-ADOrganizationalUnit -Name "NomDeVotreOU" -Path "DC=example,DC=com" -ProtectedFromAccidentalDeletion $true
+```
+
+Explication des paramètres :
+- `-Name "NomDeVotreOU"` : Nom de l'OU à créer.
+- `-Path "DC=example,DC=com"` : Emplacement où l'OU sera créée.
+- `-ProtectedFromAccidentalDeletion $true` : Active la protection contre la suppression accidentelle.
+
+ <br>
+ 
+## Vérification
+Après la création, vérifiez que l'OU apparaît bien dans Active Directory en rafraîchissant la console ADUC ou en exécutant la commande suivante dans PowerShell :
+
+```powershell
+Get-ADOrganizationalUnit -Filter "Name -eq 'NomDeVotreOU'"
+```
+
+
+---
 
