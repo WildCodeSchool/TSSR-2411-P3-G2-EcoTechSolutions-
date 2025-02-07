@@ -18,58 +18,6 @@
 1- LA GPO pour la politique de mot de passe :
 <span id="mdp"></span> 
 
-# 🔑 Création d'une GPO pour appliquer une politique de mot de passe
-
-## 📝 Objectif
-Mettre en place une **stratégie de mot de passe** stricte dans un environnement Active Directory pour renforcer la sécurité des comptes utilisateurs.
-
----
-
-## 1️⃣ Ouvrir la console de gestion des stratégies de groupe  
-1. Connectez-vous à votre **contrôleur de domaine** avec un compte **administrateur du domaine**.
-2. Ouvrez **Gestion des stratégies de groupe** :  
-   - `Win + R` → tapez `gpmc.msc` → `Entrée`.
-
----
-
-## 2️⃣ Créer une nouvelle GPO
-1. Dans **Gestion des stratégies de groupe**, faites un **clic droit** sur le domaine (`votre-domaine.local`).
-2. Cliquez sur **Créer un objet GPO dans ce domaine et le lier ici…**.
-3. Nommez la GPO : **Politique de Mot de Passe Sécurisée**.
-4. Cliquez sur **OK**.
-
----
-
-## 3️⃣ Configurer la stratégie de mot de passe
-1. Faites un **clic droit** sur la GPO **Politique de Mot de Passe Sécurisée** et cliquez sur **Modifier**.
-2. Allez dans :  Configuration ordinateur → Stratégies → Paramètres Windows → Paramètres de sécurité → Stratégies de compte → Politique de mot de passe
-3. **Configurer les paramètres** :  
-- **Exiger un mot de passe complexe** : `Activé`
-  - Exige l’utilisation de **majuscules, minuscules, chiffres et caractères spéciaux**.
-- **Longueur minimale du mot de passe** : `12` (ou plus selon votre politique interne).
-- **Durée de vie maximale du mot de passe** : `90 jours` (ou selon vos besoins).
-- **Durée de vie minimale du mot de passe** : `1 jour` (empêche les changements immédiats pour contourner la politique).
-- **Longueur minimale de l’historique du mot de passe** : `5 mots de passe` (évite la réutilisation rapide).
-- **Stocker les mots de passe en utilisant un chiffrement réversible** : `Désactivé` (pour éviter que les mots de passe puissent être lus en clair).
-
-4. **Valider les modifications** et fermer l’éditeur de GPO.
- 1. **Forcer l’application de la GPO** sur un poste client en exécutant la commande suivante :  gpuptade /force
- 2. Vérifier l'application de la stratégie avec la commande : gpresult /r
- 3. Tester un changement de mot de passe sur un compte utilisateur (Ctrl + Alt + Suppr → Modifier un mot de passe).
-    - Vérifiez que les exigences de complexité sont bien appliquées.
-    - Essayez d’utiliser un ancien mot de passe pour voir si l’historique fonctionne.
-
-![image](https://github.com/user-attachments/assets/f1dd3c20-0579-4354-b193-656f9dfc2fc2)
-
-
----
-
-## 4️⃣ Appliquer et tester la GPO
-1. **Forcer l’application de la GPO** sur un poste client en exécutant la commande suivante :  
-```powershell
-gpupdate /force
-
-
 2- La GPO pour le verrouillage de compte :
 <span id="verrouillage"></span> 
 
@@ -99,7 +47,7 @@ Empêcher les utilisateurs non-administrateurs d’installer des logiciels en bl
 1. Faites un **clic droit** sur la GPO **Blocage Installation Logiciels** et cliquez sur **Modifier**.
 2. Allez dans :  Configuration ordinateur → Stratégies → Paramètres Windows → Paramètres de sécurité → Stratégies de restriction logicielle
 
-![image](https://github.com/user-attachments/assets/fc941fde-00b1-41fc-98bc-e916081cf6c0)
+<br><p align="center"><img src="https://github.com/user-attachments/assets/fc941fde-00b1-41fc-98bc-e916081cf6c0" alt=""></p><br>
 
 3. Faites un **clic droit** sur **Stratégies de restriction logicielle** → **Créer des stratégies de restriction logicielle**.
 
@@ -141,7 +89,7 @@ Configuration ordinateur → Stratégies → Paramètres Windows → Paramètres
 1. **Fermez** l'éditeur de GPO.
 2. **Forcer l'application** de la GPO sur un poste client :  gpupdate /force
 
-![image](https://github.com/user-attachments/assets/13c39a56-b2fb-4ac4-85a8-4d2f3a11d07a)
+<br><p align="center"><img src="https://github.com/user-attachments/assets/13c39a56-b2fb-4ac4-85a8-4d2f3a11d07a" alt=""></p><br>
 
 Redémarrez le poste client et tentez d’installer un fichier .msi avec un compte utilisateur standard.
 
@@ -185,17 +133,22 @@ Configuration ordinateur → Stratégies → Modèles d'administration → Syst�
 
 Activer les paramètres suivants :
 
-1. **Refuser l'accès en lecture aux périphériques de stockage amovibles**
-   - Double-cliquer sur **"Refuser l'accès en lecture aux périphériques de stockage amovibles"**
+1. **Refuser l'accès à toutes les classes de stockage amovible**
+   - Double-cliquer sur **"Toutes les classes de stockage amovible: refuser tous les accès"**
    - Sélectionner **Activé**
+<br><p align="center"><img src="https://github.com/user-attachments/assets/68f8e11c-5953-4ed9-9bbd-62d6dfb742e7" alt=""></p><br>
 
-2. **Refuser l'accès en écriture aux périphériques de stockage amovibles**
-   - Double-cliquer sur **"Refuser l'accès en écriture aux périphériques de stockage amovibles"**
+2. **Refuser l'accès en lecture aux disques amovibles**
+   - Double-cliquer sur **"Refuser l'accès en lecture aux disques amovibles"**
    - Sélectionner **Activé**
+<br><p align="center"><img src="https://github.com/user-attachments/assets/77958c51-18af-44d2-ab20-7196241c1471" alt=""></p><br>
+
+<br><p align="center"><img src="https://github.com/user-attachments/assets/e436c18d-8c67-468b-ba57-92b23f26bb65" alt=""></p><br>
 
 3. **Refuser l'accès à l'exécution aux périphériques de stockage amovibles**
    - Double-cliquer sur **"Refuser l'accès à l'exécution aux périphériques de stockage amovibles"**
    - Sélectionner **Activé**
+<br><p align="center"><img src="https://github.com/user-attachments/assets/2b015581-8def-4cd4-8973-81b9fca86705" alt=""></p><br>
 
 4. **Désactiver l'installation de nouveaux périphériques amovibles** (optionnel)
    - Double-cliquer sur **"Tous les classes de stockage amovible : Refuser toutes les classes"**
@@ -322,4 +275,5 @@ gpresult /r
 💡 **Remarque :** Assurez-vous que la GPO est bien appliquée à l’OU contenant les comptes utilisateurs et non aux machines si la stratégie est configurée sous `Configuration utilisateur`.
 
 📌 **Fin de la procédure.** 😊
+
 
