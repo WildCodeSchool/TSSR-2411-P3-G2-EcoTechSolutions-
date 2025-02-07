@@ -1,11 +1,11 @@
 ## USER GUIDE CREATION DES GPO STANDARD ET DES GPO DE SECURITE
 
 ### GPO de sécurité :
-1. Politique de mot de passe (complexité, longueur, etc.)
-2. Verrouillage de compte (blocage de l'accès à la session après quelques erreur de mot de passe)
-3. Restriction d'installation de logiciel pour les utilisateurs non-administrateurs
-4. Restriction des périphériques amovible
-5. Écran de veille avec mot de passe en sortie
+1. 📝 Politique de mot de passe (complexité, longueur, etc.)(#mdp)
+2. 🔒Verrouillage de compte (blocage de l'accès à la session après quelques erreur de mot de passe)(#verrouillage)
+3. ⛔️ Restriction d'installation de logiciel pour les utilisateurs non-administrateurs (#logiciel)
+4. 💽 Restriction des périphériques amovible(#peripherique)
+5.💻 Écran de veille avec mot de passe en sortie(#veille)
 
 ### GPO Standart :
 1. GPO pour un même fond d'écran
@@ -16,14 +16,92 @@
 ## Les GPO de sécurité :
 
 1- LA GPO pour la politique de mot de passe :
+<span id="mdp"></span> 
 
 2- La GPO pour le verrouillage de compte :
+<span id="verrouillage"></span> 
+
+# 🔒 Création d'une GPO pour bloquer l'installation de logiciels
+
+## 📝 Objectif
+Empêcher les utilisateurs non-administrateurs d’installer des logiciels en bloquant **msiexec.exe** via **Software Restriction Policies (SRP)** et configurer **AppLocker** pour un contrôle plus strict.
+
+---
+
+## 1️⃣ Ouvrir la console de gestion des stratégies de groupe  
+1. Connectez-vous à votre **contrôleur de domaine** avec un compte **administrateur du domaine**.
+2. Ouvrez **Gestion des stratégies de groupe** :  
+   - `Win + R` → tapez `gpmc.msc` → `Entrée`.
+
+---
+
+## 2️⃣ Créer une nouvelle GPO
+1. Dans **Gestion des stratégies de groupe**, faites un clic droit sur l'OU cible (ex : `utilisateurs` dans `bordeaux`).
+2. Cliquez sur **Créer un objet GPO dans ce domaine et le lier ici…**.
+3. Nommez la GPO : **Blocage Installation Logiciels**.
+4. Cliquez sur **OK**.
+
+---
+
+## 3️⃣ Configurer la restriction avec Software Restriction Policies (SRP)
+1. Faites un **clic droit** sur la GPO **Blocage Installation Logiciels** et cliquez sur **Modifier**.
+2. Allez dans :  Configuration ordinateur → Stratégies → Paramètres Windows → Paramètres de sécurité → Stratégies de restriction logicielle
+
+![image](https://github.com/user-attachments/assets/fc941fde-00b1-41fc-98bc-e916081cf6c0)
+
+3. Faites un **clic droit** sur **Stratégies de restriction logicielle** → **Créer des stratégies de restriction logicielle**.
+
+### ➤ Ajouter une règle pour bloquer **msiexec.exe**
+1. Dans **Stratégies de restriction logicielle**, cliquez sur **Règles supplémentaires**.
+2. Faites un **clic droit** dans la partie droite → **Nouvelle règle de chemin**.
+3. Dans **Chemin**, entrez : C:\Windows\System32\msiexec.exe
+4. Dans **Niveau de sécurité**, sélectionnez **Interdit**.
+5. Ajoutez une **description** (ex : *Règle qui bloque directement le processus d'installation d'applications*).
+6. Cliquez sur **OK**.
+
+---
+
+## 4️⃣ Configurer AppLocker pour renforcer les restrictions
+1. Toujours dans l'éditeur de GPO, allez dans :  
+Configuration ordinateur → Stratégies → Paramètres Windows → Paramètres de sécurité → Stratégies de contrôle des applications → AppLocker
+2. Cliquez sur **Configurer l’application des règles** et cochez :
+- **Executable Rules**
+- **Windows Installer Rules**
+- **Script Rules**
+3. Cliquez sur **OK**.
+
+### ➤ Créer une règle AppLocker pour bloquer `.msi`
+1. Allez dans **Windows Installer Rules**.
+2. Faites un **clic droit** → **Créer une règle**.
+3. Dans l’assistant :
+- **Action** : **Refuser**
+- **Utilisateur ou groupe** : **Tout le monde**
+- **Condition** : **Par chemin**
+- **Chemin** :  
+  ```
+  C:\Windows\System32\msiexec.exe
+  ```
+4. Cliquez sur **Suivant** et terminez l’assistant.
+
+---
+
+## 5️⃣ Appliquer et tester la GPO
+1. **Fermez** l'éditeur de GPO.
+2. **Forcer l'application** de la GPO sur un poste client :  gpupdate /force
+
+![image](https://github.com/user-attachments/assets/13c39a56-b2fb-4ac4-85a8-4d2f3a11d07a)
+
+Redémarrez le poste client et tentez d’installer un fichier .msi avec un compte utilisateur standard.
+
 
 3- La GPO pour restreindre l'installation de logicile pour les utilisateurs qui ne sont pas administrateurs :
+<span id="logiciel"></span> 
 
 4- LA GPO des périphériques amovibles :
+<span id="periphérique"></span> 
 
 5- LA GPO pour configurer un mot de passe en sortie d'ecran de veille :
+<span id="veille"></span> 
 ## 🎯 Objectif
 Configurer une stratégie de groupe (GPO) pour imposer un écran de veille avec une demande de mot de passe à la sortie.
 
