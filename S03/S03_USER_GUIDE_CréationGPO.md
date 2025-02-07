@@ -100,6 +100,88 @@ Redémarrez le poste client et tentez d’installer un fichier .msi avec un comp
 4- LA GPO des périphériques amovibles :
 <span id="periphérique"></span> 
 
+# 📌 Procédure GPO : Restriction des périphériques amovibles
+
+## 🎯 Objectif
+Configurer une stratégie de groupe (GPO) pour restreindre l'utilisation des périphériques amovibles (clés USB, disques externes, etc.)
+
+---
+
+## 🛠 Étapes de configuration
+
+### 1️⃣ Ouvrir la console de gestion des stratégies de groupe
+1. Se connecter au **contrôleur de domaine**.
+2. Ouvrir la console **GPMC** (*Group Policy Management Console*).
+   - Appuyer sur `Win + R`, taper `gpmc.msc`, puis valider.
+
+---
+
+### 2️⃣ Créer ou modifier une GPO
+1. Naviguer jusqu’à l’OU (*Organizational Unit*) contenant les utilisateurs ou ordinateurs concernés.
+2. Clic droit sur l’OU → **Créer une GPO** → Nommer la GPO (ex: `GPO_Restriction_USB`).
+3. Clic droit sur la GPO → **Modifier**.
+
+---
+
+### 3️⃣ Configurer la restriction des périphériques amovibles
+Dans l’éditeur de stratégie de groupe :
+
+📌 **Chemin :**
+```
+Configuration ordinateur → Stratégies → Modèles d'administration → Système → Accès au stockage amovible
+```
+
+Activer les paramètres suivants :
+
+1. **Refuser l'accès en lecture aux périphériques de stockage amovibles**
+   - Double-cliquer sur **"Refuser l'accès en lecture aux périphériques de stockage amovibles"**
+   - Sélectionner **Activé**
+
+2. **Refuser l'accès en écriture aux périphériques de stockage amovibles**
+   - Double-cliquer sur **"Refuser l'accès en écriture aux périphériques de stockage amovibles"**
+   - Sélectionner **Activé**
+
+3. **Refuser l'accès à l'exécution aux périphériques de stockage amovibles**
+   - Double-cliquer sur **"Refuser l'accès à l'exécution aux périphériques de stockage amovibles"**
+   - Sélectionner **Activé**
+
+4. **Désactiver l'installation de nouveaux périphériques amovibles** (optionnel)
+   - Double-cliquer sur **"Tous les classes de stockage amovible : Refuser toutes les classes"**
+   - Sélectionner **Activé**
+
+---
+
+### 4️⃣ Appliquer la GPO
+1. Fermer l’éditeur et revenir à la **GPMC**.
+2. Lier la GPO à l’OU cible :
+   - Clic droit → **Lier un objet de stratégie existant...**
+3. Forcer l’application de la GPO immédiatement en exécutant sur un poste client :
+   ```powershell
+   gpupdate /force
+   ```
+
+---
+
+## ✅ Vérification sur un poste utilisateur
+1. Insérer un périphérique de stockage USB.
+2. Vérifier si l’accès est bloqué en lecture et/ou écriture.
+3. Tenter d’exécuter un fichier depuis le périphérique pour s’assurer de la restriction.
+
+---
+
+## 🔍 Dépannage
+Si la GPO ne s’applique pas immédiatement, redémarrer le poste ou vérifier avec :
+```powershell
+gpresult /r
+```
+
+💡 **Remarque :**
+- Pour des restrictions spécifiques à certains utilisateurs, appliquez la GPO sous `Configuration utilisateur` au lieu de `Configuration ordinateur`.
+- Tester les paramètres sur un poste avant un déploiement global.
+
+📌 **Fin de la procédure.** 😊
+
+
 5- LA GPO pour configurer un mot de passe en sortie d'ecran de veille :
 <span id="veille"></span> 
 ## 🎯 Objectif
