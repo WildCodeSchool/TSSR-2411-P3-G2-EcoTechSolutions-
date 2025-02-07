@@ -6,16 +6,167 @@
 3. [⛔️ Restriction d'installation de logiciel pour les utilisateurs non-administrateurs](#logiciel)
 4. [💽 Restriction des périphériques amovible](#peripherique)
 5. [💻 Écran de veille avec mot de passe en sortie](#veille)
+### GPO de sécurité :
+1. [💻 Configurer un même fond d'écran](#fondecran)
+2. [⚡️parametrer la gestion de l'alimentation](#alimentation)
+
+---
 
 ### GPO Standart :
-1. GPO pour un même fond d'écran
-2. [Gestion de l'alimentation](#alimentation).
+1- GPO pour un même fond d'écran :
+<span id="fondecran"></span>
+
+# 🖥️ Création d'une GPO pour définir un fond d’écran commun
+
+## 📝 Objectif
+Déployer un **fond d’écran unique** sur tous les postes d’un domaine Active Directory, empêchant les utilisateurs de le modifier.
+
+---
+
+## 1️⃣ Préparer l'image du fond d'écran  
+1. Choisissez une **image** au format `.jpg` ou `.bmp` pour garantir la compatibilité.
+2. Copiez l’image dans un **dossier réseau accessible à tous les utilisateurs**.  
+   - Exemple de chemin réseau partagé :  
+     ```
+     \\SRV-FILES\Partage\wallpaper.jpg
+     ```
+   - Assurez-vous que les **utilisateurs ont au moins un accès en lecture** au dossier contenant l’image.
+<br><p align="center"><img src="https://github.com/user-attachments/assets/1837afd6-b518-4cd0-a5eb-f215c7b1b14b" alt=""></p><br>
+
+
+---
+
+## 2️⃣ Ouvrir la console de gestion des stratégies de groupe  
+1. Connectez-vous à votre **contrôleur de domaine** avec un compte **administrateur du domaine**.
+2. Ouvrez **Gestion des stratégies de groupe** :  
+   - `Win + R` → tapez `gpmc.msc` → `Entrée`.
+
+---
+
+## 3️⃣ Créer une nouvelle GPO  
+1. Dans **Gestion des stratégies de groupe**, faites un **clic droit** sur le domaine (`votre-domaine.local`) ou une **OU spécifique**.
+2. Cliquez sur **Créer un objet GPO dans ce domaine et le lier ici…**.
+3. Nommez la GPO : **Fond d’écran Entreprise**.
+4. Cliquez sur **OK**.
+
+---
+
+## 4️⃣ Configurer la stratégie de fond d’écran  
+1. Faites un **clic droit** sur la GPO **Fond d’écran Entreprise** et cliquez sur **Modifier**.
+2. Accédez à :  Configuration utilisateur → Stratégies → Modèles d'administration → Bureau → Bureau actif
+3. **Configurer la stratégie** :
+- Double-cliquez sur **Fond d’écran de bureau**.
+- Sélectionnez **Activé**.
+- Dans **Nom du papier peint**, entrez le **chemin réseau** de l’image :  
+  ```
+  \\SRV-FILES\Partage\wallpaper.jpg
+  ```
+- Dans **Style du papier peint**, choisissez :
+  - `Rempli` (pour adapter l’image à l’écran).
+  - `Étiré` si vous souhaitez qu’elle couvre toute la surface.
+- Cliquez sur **OK**.
+
+---
+
+## 5️⃣ Appliquer et tester la GPO  
+1. **Forcer l’application de la GPO** sur un poste client en exécutant la commande suivante :  gpupdate /force
+2. Vérifier l'application de la stratégie avec la commande :gpresult /r
+3. Déconnectez-vous et reconnectez-vous pour voir si le fond d’écran est bien appliqué.
+<br><p align="center"><img src="https://github.com/user-attachments/assets/86088725-4616-427d-9f6e-2b08600a6fef" alt=""></p><br>
+<br><p align="center"><img src="https://github.com/user-attachments/assets/55e1efed-3019-449b-9fd5-6bf1250aaac2" alt=""></p><br>
+
+
+   
+
+2. [Gestion de l'alimentation](#alimentation):
+<span id="alimentation"></span>
+## 🎯 Objectif
+Configurer une stratégie de groupe (GPO) pour gérer les paramètres d’alimentation des postes du domaine.
+
+---
+
+## 🛠 Étapes de configuration
+
+### 1️⃣ Ouvrir la console de gestion des stratégies de groupe
+1. Se connecter au **contrôleur de domaine**.
+2. Ouvrir la console **GPMC** (*Group Policy Management Console*).
+   - Appuyer sur `Win + R`, taper `gpmc.msc`, puis valider.
+
+---
+
+### 2️⃣ Créer ou modifier une GPO
+1. Naviguer jusqu’à l’OU (*Organizational Unit*) contenant les ordinateurs concernés.
+2. Clic droit sur l’OU → **Créer une GPO** → Nommer la GPO (ex: `GPO_Gestion_Alimentation`).
+3. Clic droit sur la GPO → **Modifier**.
+
+---
+
+### 3️⃣ Configurer les paramètres d’alimentation
+Dans l’éditeur de stratégie de groupe :
+
+📌 **Chemin :**
+```
+Configuration ordinateur → Stratégies → Modèles d'administration → Système → Gestion de l'alimentation
+```
+
+Activer les paramètres suivants selon vos besoins :
+
+1. **Exiger un mode de gestion de l’alimentation spécifique**
+   - Aller dans **"Paramètres supplémentaires d’alimentation"**
+   - Sélectionner **Activé** et choisir un mode d’alimentation prédéfini (ex : "Équilibré", "Économie d’énergie").
+
+2. **Configurer la mise en veille automatique**
+   - Double-cliquer sur **"Spécifier le délai d’inactivité avant mise en veille"**
+   - Sélectionner **Activé**
+   - Définir un délai (ex : `1200` secondes = 20 minutes).
+![Gestion_Alimentation](https://github.com/user-attachments/assets/390ba642-26bc-4b18-ad29-9ee7e605d4d7)
+
+
+3. **Désactiver l’extinction automatique de l’écran**
+   - Double-cliquer sur **"Désactiver la mise en veille de l’affichage"**
+   - Sélectionner **Activé** (ou configurer un délai d’inactivité selon les besoins).
+
+4. **Empêcher les utilisateurs de modifier les paramètres d’alimentation**
+   - Double-cliquer sur **"Interdire aux utilisateurs de modifier les paramètres de gestion de l’alimentation"**
+   - Sélectionner **Activé**.
+
+---
+
+### 4️⃣ Appliquer la GPO
+1. Fermer l’éditeur et revenir à la **GPMC**.
+2. Lier la GPO à l’OU cible :
+   - Clic droit → **Lier un objet de stratégie existant...**
+3. Forcer l’application de la GPO immédiatement en exécutant sur un poste client :
+   ```powershell
+   gpupdate /force
+   ```
+
+---
+
+## ✅ Vérification sur un poste utilisateur
+1. Aller dans **Panneau de configuration → Options d’alimentation**.
+2. Vérifier que le mode d’alimentation appliqué correspond à celui défini dans la GPO.
+3. Tester la mise en veille et l’extinction automatique de l’écran après le délai configuré.
+
+---
+
+## 🔍 Dépannage
+Si la GPO ne s’applique pas immédiatement, redémarrer le poste ou vérifier avec :
+```powershell
+gpresult /r
+```
+
+💡 **Remarque :**
+- Assurez-vous que la GPO est bien appliquée aux machines et non aux utilisateurs si elle est configurée sous `Configuration ordinateur`.
+- Testez la GPO sur un poste avant un déploiement global.
+
+📌 **Fin de la procédure.** 😊
 
 ---
 
 ## Les GPO de sécurité :
 
-1- LA GPO pour la politique de mot de passe :
+# 1- LA GPO pour la politique de mot de passe :
 <span id="mdp"></span> 
 
 # 🔑 Création d'une GPO pour appliquer une politique de mot de passe
@@ -67,7 +218,7 @@ Mettre en place une **stratégie de mot de passe** stricte dans un environnement
 
 
 
-2- La GPO pour le verrouillage de compte :
+# 2- La GPO pour le verrouillage de compte :
 <span id="verrouillage"></span> 
 # 🔒 Création d'une GPO pour le Verrouillage de compte après plusieurs échecs de connexion
 
@@ -121,7 +272,7 @@ Configurer une **stratégie de verrouillage de compte** afin de **bloquer tempor
 
 
 
-3- La GPO pour restreindre l'installation de logicile pour les utilisateurs qui ne sont pas administrateurs :
+# 3- La GPO pour restreindre l'installation de logicile pour les utilisateurs qui ne sont pas administrateurs :
 <span id="logiciel"></span> 
 
 # 🔒 Création d'une GPO pour bloquer l'installation de logiciels
@@ -198,8 +349,8 @@ Redémarrez le poste client et tentez d’installer un fichier .msi avec un comp
 
 
 
-4- LA GPO des périphériques amovibles :
-<span id="periphérique"></span> 
+# 4- LA GPO des périphériques amovibles :
+<span id="peripherique"></span> 
 
 # 📌 Procédure GPO : Restriction des périphériques amovibles
 
@@ -288,7 +439,7 @@ gpresult /r
 📌 **Fin de la procédure.** 😊
 
 
-5- LA GPO pour configurer un mot de passe en sortie d'ecran de veille :
+# 5- LA GPO pour configurer un mot de passe en sortie d'ecran de veille :
 <span id="veille"></span> 
 ## 🎯 Objectif
 Configurer une stratégie de groupe (GPO) pour imposer un écran de veille avec une demande de mot de passe à la sortie.
@@ -376,93 +527,4 @@ gpresult /r
 💡 **Remarque :** Assurez-vous que la GPO est bien appliquée à l’OU contenant les comptes utilisateurs et non aux machines si la stratégie est configurée sous `Configuration utilisateur`.
 
 📌 **Fin de la procédure.** 😊
-
-1. GPO pour un même fond d'écran
-2. Gestion de l'alimentation
-<span id="alimentation"></span>
-
-## 🎯 Objectif
-Configurer une stratégie de groupe (GPO) pour gérer les paramètres d’alimentation des postes du domaine.
-
----
-
-## 🛠 Étapes de configuration
-
-### 1️⃣ Ouvrir la console de gestion des stratégies de groupe
-1. Se connecter au **contrôleur de domaine**.
-2. Ouvrir la console **GPMC** (*Group Policy Management Console*).
-   - Appuyer sur `Win + R`, taper `gpmc.msc`, puis valider.
-
----
-
-### 2️⃣ Créer ou modifier une GPO
-1. Naviguer jusqu’à l’OU (*Organizational Unit*) contenant les ordinateurs concernés.
-2. Clic droit sur l’OU → **Créer une GPO** → Nommer la GPO (ex: `GPO_Gestion_Alimentation`).
-3. Clic droit sur la GPO → **Modifier**.
-
----
-
-### 3️⃣ Configurer les paramètres d’alimentation
-Dans l’éditeur de stratégie de groupe :
-
-📌 **Chemin :**
-```
-Configuration ordinateur → Stratégies → Modèles d'administration → Système → Gestion de l'alimentation
-```
-
-Activer les paramètres suivants selon vos besoins :
-
-1. **Exiger un mode de gestion de l’alimentation spécifique**
-   - Aller dans **"Paramètres supplémentaires d’alimentation"**
-   - Sélectionner **Activé** et choisir un mode d’alimentation prédéfini (ex : "Équilibré", "Économie d’énergie").
-
-2. **Configurer la mise en veille automatique**
-   - Double-cliquer sur **"Spécifier le délai d’inactivité avant mise en veille"**
-   - Sélectionner **Activé**
-   - Définir un délai (ex : `1200` secondes = 20 minutes).
-![Gestion_Alimentation](https://github.com/user-attachments/assets/390ba642-26bc-4b18-ad29-9ee7e605d4d7)
-
-
-3. **Désactiver l’extinction automatique de l’écran**
-   - Double-cliquer sur **"Désactiver la mise en veille de l’affichage"**
-   - Sélectionner **Activé** (ou configurer un délai d’inactivité selon les besoins).
-
-4. **Empêcher les utilisateurs de modifier les paramètres d’alimentation**
-   - Double-cliquer sur **"Interdire aux utilisateurs de modifier les paramètres de gestion de l’alimentation"**
-   - Sélectionner **Activé**.
-
----
-
-### 4️⃣ Appliquer la GPO
-1. Fermer l’éditeur et revenir à la **GPMC**.
-2. Lier la GPO à l’OU cible :
-   - Clic droit → **Lier un objet de stratégie existant...**
-3. Forcer l’application de la GPO immédiatement en exécutant sur un poste client :
-   ```powershell
-   gpupdate /force
-   ```
-
----
-
-## ✅ Vérification sur un poste utilisateur
-1. Aller dans **Panneau de configuration → Options d’alimentation**.
-2. Vérifier que le mode d’alimentation appliqué correspond à celui défini dans la GPO.
-3. Tester la mise en veille et l’extinction automatique de l’écran après le délai configuré.
-
----
-
-## 🔍 Dépannage
-Si la GPO ne s’applique pas immédiatement, redémarrer le poste ou vérifier avec :
-```powershell
-gpresult /r
-```
-
-💡 **Remarque :**
-- Assurez-vous que la GPO est bien appliquée aux machines et non aux utilisateurs si elle est configurée sous `Configuration ordinateur`.
-- Testez la GPO sur un poste avant un déploiement global.
-
-📌 **Fin de la procédure.** 😊
-
-
-
 
