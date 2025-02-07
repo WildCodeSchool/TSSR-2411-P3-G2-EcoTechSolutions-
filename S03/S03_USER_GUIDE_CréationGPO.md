@@ -1,17 +1,26 @@
+## USER GUIDE CREATION DES GPO STANDARD ET DES GPO DE SECURITE
 
-<br><p align="center"><img src="https://github.com/user-attachments/assets/a1835c6f-1f44-48e7-ae4c-607be879b6b8" alt=""></p><br>
-.
-<br><p align="center"><img src="https://github.com/user-attachments/assets/adc3ec2e-d792-4177-a980-d9ad5f51ab24" alt=""></p><br>
-.
-<br><p align="center"><img src="https://github.com/user-attachments/assets/a2d79aac-b28e-4686-9fb8-3bd3b8e2d0c7" alt=""></p><br>
-.
-<br><p align="center"><img src="https://github.com/user-attachments/assets/45e43736-d6a9-4e25-ba86-44b3e844444f" alt=""></p><br>
-.
-<br><p align="center"><img src="https://github.com/user-attachments/assets/fd263328-7f43-4254-aa5e-81354a3fe88c" alt=""></p><br>
-.
-<br><p align="center"><img src="https://github.com/user-attachments/assets/d9d5150b-fc95-4db0-b950-296804e6f4a7" alt=""></p><br>
-.
-<br><p align="center"><img src="https://github.com/user-attachments/assets/6d8a8f5f-1282-4d77-820e-280a1bcfa2aa" alt=""></p><br>
-.
-<br><p align="center"><img src="https://github.com/user-attachments/assets/7ca9471f-09ab-4043-9308-5607bc3530e8" alt=""></p><br>
-.
+### GPO de sécurité :
+1. Politique de mot de passe (complexité, longueur, etc.)
+2. Verrouillage de compte (blocage de l'accès à la session après quelques erreur de mot de passe)
+3. Restriction d'installation de logiciel pour les utilisateurs non-administrateurs
+4. Restriction des périphériques amovible
+5. Écran de veille avec mot de passe en sortie
+
+### GPO Standart :
+1. GPO pour un même fond d'écran
+2. Gestion de l'alimentation
+
+---
+
+## Les GPO de sécurité :
+
+1- LA GPO pour la politique de mot de passe :
+
+2- La GPO pour le verrouillage de compte :
+
+3- La GPO pour restreindre l'installation de logicile pour les utilisateurs qui ne sont pas administrateurs :
+
+4- LA GPO des périphériques amovibles :
+
+5- LA GPO pour configurer un mot de passe en sortie d'ecran de veille :
