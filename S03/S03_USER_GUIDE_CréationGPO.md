@@ -9,7 +9,7 @@
 
 ### GPO Standart :
 1. GPO pour un même fond d'écran
-2. Gestion de l'alimentation
+2. [Gestion de l'alimentation](#alimentation).
 
 ---
 
@@ -376,5 +376,93 @@ gpresult /r
 💡 **Remarque :** Assurez-vous que la GPO est bien appliquée à l’OU contenant les comptes utilisateurs et non aux machines si la stratégie est configurée sous `Configuration utilisateur`.
 
 📌 **Fin de la procédure.** 😊
+
+1. GPO pour un même fond d'écran
+2. Gestion de l'alimentation
+<span id="alimentation"></span>
+
+## 🎯 Objectif
+Configurer une stratégie de groupe (GPO) pour gérer les paramètres d’alimentation des postes du domaine.
+
+---
+
+## 🛠 Étapes de configuration
+
+### 1️⃣ Ouvrir la console de gestion des stratégies de groupe
+1. Se connecter au **contrôleur de domaine**.
+2. Ouvrir la console **GPMC** (*Group Policy Management Console*).
+   - Appuyer sur `Win + R`, taper `gpmc.msc`, puis valider.
+
+---
+
+### 2️⃣ Créer ou modifier une GPO
+1. Naviguer jusqu’à l’OU (*Organizational Unit*) contenant les ordinateurs concernés.
+2. Clic droit sur l’OU → **Créer une GPO** → Nommer la GPO (ex: `GPO_Gestion_Alimentation`).
+3. Clic droit sur la GPO → **Modifier**.
+
+---
+
+### 3️⃣ Configurer les paramètres d’alimentation
+Dans l’éditeur de stratégie de groupe :
+
+📌 **Chemin :**
+```
+Configuration ordinateur → Stratégies → Modèles d'administration → Système → Gestion de l'alimentation
+```
+
+Activer les paramètres suivants selon vos besoins :
+
+1. **Exiger un mode de gestion de l’alimentation spécifique**
+   - Aller dans **"Paramètres supplémentaires d’alimentation"**
+   - Sélectionner **Activé** et choisir un mode d’alimentation prédéfini (ex : "Équilibré", "Économie d’énergie").
+
+2. **Configurer la mise en veille automatique**
+   - Double-cliquer sur **"Spécifier le délai d’inactivité avant mise en veille"**
+   - Sélectionner **Activé**
+   - Définir un délai (ex : `1200` secondes = 20 minutes).
+![Gestion_Alimentation](https://github.com/user-attachments/assets/390ba642-26bc-4b18-ad29-9ee7e605d4d7)
+
+
+3. **Désactiver l’extinction automatique de l’écran**
+   - Double-cliquer sur **"Désactiver la mise en veille de l’affichage"**
+   - Sélectionner **Activé** (ou configurer un délai d’inactivité selon les besoins).
+
+4. **Empêcher les utilisateurs de modifier les paramètres d’alimentation**
+   - Double-cliquer sur **"Interdire aux utilisateurs de modifier les paramètres de gestion de l’alimentation"**
+   - Sélectionner **Activé**.
+
+---
+
+### 4️⃣ Appliquer la GPO
+1. Fermer l’éditeur et revenir à la **GPMC**.
+2. Lier la GPO à l’OU cible :
+   - Clic droit → **Lier un objet de stratégie existant...**
+3. Forcer l’application de la GPO immédiatement en exécutant sur un poste client :
+   ```powershell
+   gpupdate /force
+   ```
+
+---
+
+## ✅ Vérification sur un poste utilisateur
+1. Aller dans **Panneau de configuration → Options d’alimentation**.
+2. Vérifier que le mode d’alimentation appliqué correspond à celui défini dans la GPO.
+3. Tester la mise en veille et l’extinction automatique de l’écran après le délai configuré.
+
+---
+
+## 🔍 Dépannage
+Si la GPO ne s’applique pas immédiatement, redémarrer le poste ou vérifier avec :
+```powershell
+gpresult /r
+```
+
+💡 **Remarque :**
+- Assurez-vous que la GPO est bien appliquée aux machines et non aux utilisateurs si elle est configurée sous `Configuration ordinateur`.
+- Testez la GPO sur un poste avant un déploiement global.
+
+📌 **Fin de la procédure.** 😊
+
+
 
 
