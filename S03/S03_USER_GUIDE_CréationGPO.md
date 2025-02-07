@@ -3,7 +3,7 @@
 ### GPO de sécurité :
 1. [📝 Politique de mot de passe (complexité, longueur, etc.)](#mdp)
 2. [🔒Verrouillage de compte (blocage de l'accès à la session après quelques erreur de mot de passe)](#verrouillage)
-3. [⛔️ Restriction d'installation de logiciel pour les utilisateurs non-administrateurs] (#logiciel)
+3. [⛔️ Restriction d'installation de logiciel pour les utilisateurs non-administrateurs](#logiciel)
 4. [💽 Restriction des périphériques amovible](#peripherique)
 5. [💻 Écran de veille avec mot de passe en sortie](#veille)
 
