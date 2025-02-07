@@ -18,8 +18,111 @@
 1- LA GPO pour la politique de mot de passe :
 <span id="mdp"></span> 
 
+# 🔑 Création d'une GPO pour appliquer une politique de mot de passe
+
+## 📝 Objectif
+Mettre en place une **stratégie de mot de passe** stricte dans un environnement Active Directory pour renforcer la sécurité des comptes utilisateurs.
+
+---
+
+## 1️⃣ Ouvrir la console de gestion des stratégies de groupe  
+1. Connectez-vous à votre **contrôleur de domaine** avec un compte **administrateur du domaine**.
+2. Ouvrez **Gestion des stratégies de groupe** :  
+   - `Win + R` → tapez `gpmc.msc` → `Entrée`.
+
+---
+
+## 2️⃣ Créer une nouvelle GPO
+1. Dans **Gestion des stratégies de groupe**, faites un **clic droit** sur le domaine (`votre-domaine.local`).
+2. Cliquez sur **Créer un objet GPO dans ce domaine et le lier ici…**.
+3. Nommez la GPO : **Politique de Mot de Passe Sécurisée**.
+4. Cliquez sur **OK**.
+
+---
+
+## 3️⃣ Configurer la stratégie de mot de passe
+1. Faites un **clic droit** sur la GPO **Politique de Mot de Passe Sécurisée** et cliquez sur **Modifier**.
+2. Allez dans :  Configuration ordinateur → Stratégies → Paramètres Windows → Paramètres de sécurité → Stratégies de compte → Politique de mot de passe 
+3. **Configurer les paramètres** :  
+- **Exiger un mot de passe complexe** : `Activé`
+  - Exige l’utilisation de **majuscules, minuscules, chiffres et caractères spéciaux**.
+- **Longueur minimale du mot de passe** : `12` (ou plus selon votre politique interne).
+- **Durée de vie maximale du mot de passe** : `90 jours` (ou selon vos besoins).
+- **Durée de vie minimale du mot de passe** : `1 jour` (empêche les changements immédiats pour contourner la politique).
+- **Longueur minimale de l’historique du mot de passe** : `5 mots de passe` (évite la réutilisation rapide).
+- **Stocker les mots de passe en utilisant un chiffrement réversible** : `Désactivé` (pour éviter que les mots de passe puissent être lus en clair).
+
+4. **Valider les modifications** et fermer l’éditeur de GPO.
+
+---
+
+## 4️⃣ Appliquer et tester la GPO
+1. **Forcer l’application de la GPO** sur un poste client en exécutant la commande suivante : gpupdate /force
+2. Vérifier l'application de la stratégie avec la commande : gpresult /r
+3. Tester un changement de mot de passe sur un compte utilisateur (Ctrl + Alt + Suppr → Modifier un mot de passe).
+   - Vérifiez que les exigences de complexité sont bien appliquées.
+   - Essayez d’utiliser un ancien mot de passe pour voir si l’historique fonctionne.
+<br><p align="center"><img src="https://github.com/user-attachments/assets/569731f0-5878-4576-af52-5427beebd8a9" alt=""></p><br>
+
+
+
+
 2- La GPO pour le verrouillage de compte :
 <span id="verrouillage"></span> 
+# 🔒 Création d'une GPO pour le Verrouillage de compte après plusieurs échecs de connexion
+
+## 📝 Objectif
+Configurer une **stratégie de verrouillage de compte** afin de **bloquer temporairement** l’accès à une session après plusieurs tentatives de connexion échouées. Cela permet de protéger les comptes contre les attaques par force brute.
+
+---
+
+## 1️⃣ Ouvrir la console de gestion des stratégies de groupe  
+1. Connectez-vous à votre **contrôleur de domaine** avec un compte **administrateur du domaine**.
+2. Ouvrez **Gestion des stratégies de groupe** :  
+   - `Win + R` → tapez `gpmc.msc` → `Entrée`.
+
+---
+
+## 2️⃣ Créer une nouvelle GPO
+1. Dans **Gestion des stratégies de groupe**, faites un **clic droit** sur le domaine (`votre-domaine.local`).
+2. Cliquez sur **Créer un objet GPO dans ce domaine et le lier ici…**.
+3. Nommez la GPO : **Verrouillage de compte**.
+4. Cliquez sur **OK**.
+
+---
+
+## 3️⃣ Configurer la stratégie de verrouillage de compte
+1. Faites un **clic droit** sur la GPO **Verrouillage de compte** et cliquez sur **Modifier**.
+2. Accédez à :  Configuration ordinateur → Stratégies → Paramètres Windows → Paramètres de sécurité → Stratégies de compte → Stratégie de verrouillage du compte
+3. **Configurer les paramètres** :  
+- **Seuil de verrouillage du compte** : `5`  
+  - 🔹 Bloque le compte après **5 tentatives échouées**.
+- **Durée du verrouillage du compte** : `15 minutes`  
+  - ⏳ Temps pendant lequel le compte reste verrouillé avant d’être déverrouillé automatiquement.
+- **Réinitialisation du compteur de verrouillage** : `15 minutes`  
+  - ⏱️ Temps avant que le **compteur de tentatives échouées** soit remis à zéro.
+
+ <br><p align="center"><img src="https://github.com/user-attachments/assets/420d27ba-0267-4a0e-b46f-9e0cd081706e" alt=""></p><br>
+
+
+4. **Valider les modifications** et fermer l’éditeur de GPO.
+
+---
+
+## 4️⃣ Appliquer et tester la GPO
+1. **Forcer l’application de la GPO** sur un poste client en exécutant la commande suivante : gpupdate /force
+2. Vérifier l'application de la stratégie avec la commande :gpresult /r
+3. Tester la tentative de connexion échouée sur un compte utilisateur :
+  - Essayez de taper un mauvais mot de passe plusieurs fois (5 fois dans notre exemple).
+  - Vérifiez si le message "Ce compte a été verrouillé" s'affiche après le nombre d'essais défini.
+  - Attendez 15 minutes et essayez de vous reconnecte
+  - 
+<br><p align="center"><img src="https://github.com/user-attachments/assets/7d256993-604c-42e7-b3b8-20277e3afc59" alt=""></p><br>
+
+
+
+3- La GPO pour restreindre l'installation de logicile pour les utilisateurs qui ne sont pas administrateurs :
+<span id="logiciel"></span> 
 
 # 🔒 Création d'une GPO pour bloquer l'installation de logiciels
 
@@ -94,8 +197,6 @@ Configuration ordinateur → Stratégies → Paramètres Windows → Paramètres
 Redémarrez le poste client et tentez d’installer un fichier .msi avec un compte utilisateur standard.
 
 
-3- La GPO pour restreindre l'installation de logicile pour les utilisateurs qui ne sont pas administrateurs :
-<span id="logiciel"></span> 
 
 4- LA GPO des périphériques amovibles :
 <span id="periphérique"></span> 
