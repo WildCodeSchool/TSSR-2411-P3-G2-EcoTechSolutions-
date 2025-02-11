@@ -95,7 +95,7 @@ Ce sous-réseau regroupe les adresses pour les équipements critiques (NAS, serv
 
 ## Notes supplémentaires  
 - Les adresses IP sont planifiées avec suffisamment d’espace pour permettre une extension future.  
-- Chaque département a son propre sous-réseau en /24 pour une gestion plus simple des postes.  
+- Chaque département a son propre sous-réseau en /16 pour une gestion plus simple des postes.  
 - Les équipements techniques critiques sont regroupés dans un sous-réseau dédié pour faciliter la maintenance et la sécurité (`10.10.8.0/16`).  
 - Le pare-feu principal (pfSense) est positionné sur la passerelle principale (`10.10.8.1`) pour assurer un contrôle strict du trafic réseau.
 
