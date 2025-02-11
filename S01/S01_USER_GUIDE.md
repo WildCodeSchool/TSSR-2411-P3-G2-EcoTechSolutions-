@@ -76,7 +76,7 @@ AP : Point d’accès Wi-Fi
 
 ## Répartition des serveurs, NAS, pare-feu et autres équipements réseau
 
-### Sous-réseau pour les équipements techniques : `10.10.8.0/24`  
+### Sous-réseau pour les équipements techniques : `10.10.8.0/16`  
 Ce sous-réseau regroupe les adresses pour les équipements critiques (NAS, serveurs, routeurs, pare-feu, etc.).
 
 | **Équipement**                | **Adresse attribuée** |
@@ -96,7 +96,7 @@ Ce sous-réseau regroupe les adresses pour les équipements critiques (NAS, serv
 ## Notes supplémentaires  
 - Les adresses IP sont planifiées avec suffisamment d’espace pour permettre une extension future.  
 - Chaque département a son propre sous-réseau en /24 pour une gestion plus simple des postes.  
-- Les équipements techniques critiques sont regroupés dans un sous-réseau dédié pour faciliter la maintenance et la sécurité (`10.10.8.0/24`).  
+- Les équipements techniques critiques sont regroupés dans un sous-réseau dédié pour faciliter la maintenance et la sécurité (`10.10.8.0/16`).  
 - Le pare-feu principal (pfSense) est positionné sur la passerelle principale (`10.10.8.1`) pour assurer un contrôle strict du trafic réseau.
 
   
