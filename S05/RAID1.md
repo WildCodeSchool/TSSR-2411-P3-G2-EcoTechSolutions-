@@ -5,6 +5,7 @@
 - **Deux disques virtuels supplémentaires** attachés à la VM.
 - Un accès **administrateur** sur Windows Server 2022.
 
+
 ---
 
 ## 📖 Étape 1 : Ajouter des disques à la VM sous Proxmox
@@ -18,6 +19,11 @@
    - **Bus/Contrôleur** : `VirtIO` (recommandé) ou `SATA` si VirtIO n’est pas installé.
    - **Cocher "Ignorer l’échec du disque"** si disponible.
 5. **Répéter l’opération** pour ajouter un **deuxième disque**.
+   
+| Ajout du premier disque | Ajout du deuxième disque |
+|-------------------------|-------------------------|
+| ![Ajout disque 1](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S05/RAID/1_Ajoutdisque1.PNG?raw=true) | ![Ajout disque 2](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S05/RAID/2_Ajoutdisque2.PNG?raw=true) |
+
 
 ---
 
@@ -28,6 +34,9 @@
 3. Si les disques sont **Non initialisés** :
    - **Clic droit** > **Initialiser le disque**.
    - Choisir **GPT** (recommandé) ou **MBR**.
+
+![Liste des disques durs](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S05/RAID/3_ListeDesDD.PNG?raw=true)
+
 
 ---
 
@@ -41,12 +50,26 @@
    - **Donner un nom au volume** (ex. `RAID1_DISK`).
 3. **Finaliser** et attendre la synchronisation des disques.
 
+| Création du volume miroir | Attribution de la lettre du lecteur |
+|--------------------------|------------------------------------|
+| ![Nouveau volume miroir](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S05/RAID/4_NouveauVolumeMiroir.PNG?raw=true) | ![Attribution lettre lecteur](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S05/RAID/5_AttributionLettreLecteur.PNG?raw=true) |
+
+| Formatage NTFS rapide | Finalisation et synchronisation |
+|----------------------|--------------------------------|
+| ![Formatage NTFS rapide](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S05/RAID/6_NTFSFormatageRapide.PNG?raw=true) | ![Finalisation et synchronisation](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S05/RAID/7_FinalisationSynchronisation.PNG?raw=true) |
+
+
 ---
 
 ## 📖 Étape 4 : Vérifier le RAID 1
 1. Retourner dans **Gestionnaire de disques** (`diskmgmt.msc`).
 2. Vérifier que les deux disques sont en **"Miroir"** et synchronisés.
 3. Aller dans `Ce PC` (`Win + E`) pour voir le volume RAID.
+
+| Liste des disques après configuration RAID | Vérification du RAID 1 |
+|------------------------------------------|------------------------|
+| ![Liste des disques RAID](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S05/RAID/8_ListeDesDDRAID.PNG?raw=true) | ![Vérification RAID 1](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S05/RAID/9_VerificationRAID1.PNG?raw=true) |
+
 
 ---
 
