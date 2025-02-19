@@ -1,6 +1,6 @@
 # Mise en place de LVM sur un serveur Debian
 
-## 1. Vérifier les disques disponiblesclear
+## 1. Vérifier les disques disponibles
 
 Avant de configurer LVM, vérifions quels disques sont disponibles :
 
@@ -14,7 +14,8 @@ Ou avec :
 fdisk -l
 ```
 
-Si vous ajoutez un nouveau disque, assurez-vous qu'il est bien détecté (ex. `/dev/sdb`).
+Si vous ajoutez un nouveau disque, assurez-vous qu'il est bien détecté (ex. `/dev/sda`).
+![Capture d'écran 2025-02-19 151509](https://github.com/user-attachments/assets/ec901e4d-6b19-4442-b85f-45914702937f)
 
 ---
 
