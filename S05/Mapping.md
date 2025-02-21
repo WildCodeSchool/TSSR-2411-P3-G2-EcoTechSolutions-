@@ -1,5 +1,45 @@
 # Mappage des lecteurs réseaux pour dossiers partagés
 
+Mise en place de GPO
+Ouvrez le Gestionnaire de serveur > Outils > Gestion des Stratégies de Groupe.
+![1](https://github.com/user-attachments/assets/97625e55-203c-43e7-93c0-f54b24cb4ff0)
+
+
+Clique-droit sur "Objets de stratégie de groupe" puis "Nouveau" et nommez l'objet.
+
+![2](https://github.com/user-attachments/assets/4ecb8a76-080e-4fd5-9854-1ce42afaa74d)
+
+
+Une fois nommée, allez la chercher dans la liste des objets et faites un clique-droit et ensuite "Modifier".
+
+![3](https://github.com/user-attachments/assets/5f93b23b-8f29-48c1-8242-9c49c59eb815)
+
+
+Dans l'Editeur des stratégies , allez dans Configuration Utilisateur > Preferences > Parametre Windows > Mappages de lecteur. Clique-droit sur "Mappages de lecteur et ensuite "Nouveau > Lecteur mappé".
+
+![4](https://github.com/user-attachments/assets/27331252-fc42-44cd-b7ca-3b62ff53ae92)
+
+
+Dans les propriétés du lecteur, renseignez le chemin du lecteur. Cochez "Reconnecter". Nommez le libeller. Dans lettre de lecteur, utilisez la lettre du lecteur concerné.
+
+![5](https://github.com/user-attachments/assets/8b1b4390-6bae-4ba4-9ebf-19adda39ff9e)
+
+
+Dans l'onglet "Commun", cochez "Exécuter dans le contexte de sécurité de l'utilisateur connecté".
+
+![6](https://github.com/user-attachments/assets/de09ec25-9af8-4f16-914f-fb81db54bc3a)
+
+
+Ensuite, dans l'Editeur des stratégies , allez dans Configuration Utilisateur > Preferences > Parametre Windows > Dossier. Clique-droit sur "Dossier" et ensuite "Nouveau > Dossier".
+
+![7](https://github.com/user-attachments/assets/e4c67994-98ae-49bb-b351-c51ab556d054)
+
+
+Une fois effectuée, revenez sur le gestionnaire de stratégie de groupe. Clique-droit sur l'Unité d'Organisation (OU) concerné et "lier l'objet de stratégie". Sélectionnez l'objet concerné et validez.
+
+![11](https://github.com/user-attachments/assets/427ee2c6-4ec6-4749-8fe3-e1b8eac66ca9)
+
+
 Création d'un dossier de partage
 Créez un dossier et nommez-le puis clique-droit et allez sur "Propriété".
 
