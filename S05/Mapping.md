@@ -42,11 +42,13 @@ Une fois effectuée, revenez sur le gestionnaire de stratégie de groupe. Clique
 
 Création d'un dossier de partage
 Créez un dossier et nommez-le puis clique-droit et allez sur "Propriété".
+![Capture d'écran 2025-02-21 110504](https://github.com/user-attachments/assets/1dc3a985-9456-4cab-a2bb-7eab836b9595)
 
-alt text
+
 
 Allez dans l'onglet "Partage" puis "Partage avancé"
 
+![Capture d'écran 2025-02-21 110519](https://github.com/user-attachments/assets/7377b8e6-9856-4c5b-af1d-c843233e2b4a)
 
 
 Cochez "Partager ce dossier", nommez le partage (par default le nom du dossier apparait automatiquement) et cliquez sur "Autorisations".
