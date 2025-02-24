@@ -50,34 +50,150 @@ New-NetFirewallRule -DisplayName "Elasticsearch" -Direction Inbound -Action Allo
 New-NetFirewallRule -DisplayName "Graylog Web" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 9000
 ```
 
-## 2. Installation de Graylog
-1. Téléchargez Graylog depuis [https://packages.graylog2.org/](https://packages.graylog2.org/)
-2. Extrayez le fichier ZIP
-3. Modifiez `graylog.conf` dans le dossier `config/` :
-   - Définissez une clé de hachage pour les mots de passe :
-     ```powershell
-     echo -n "VotreMotDePasse" | sha256sum
-     ```
-   - Ajoutez cette clé à `password_secret`
-   - Définissez `root_password_sha2` avec le hash de votre mot de passe admin
-   - Configurez `http_bind_address = 0.0.0.0:9000`
+### 2 Installation de Docker et Graylog sur Windows Server 2022
 
-4. Démarrez Graylog :
-   ```powershell
-   .\bin\graylog-server.bat
-   ```
+##  Étape 1 : Installation de Docker
 
-## 3. Accès à l'interface Web
-- Ouvrez un navigateur et accédez à :
+###  1.1 Activer les fonctionnalités requises  
+Dans **PowerShell (Admin)**, exécute :
+
+```powershell
+Install-WindowsFeature -Name Containers -IncludeAllSubFeature -Restart
+```
+
+Après redémarrage, active **Hyper-V** :
+
+```powershell
+Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
+```
+
+⚠ **Assure-toi que la virtualisation est activée dans le BIOS**.
+
+---
+
+###  1.2 Installer Docker  
+1. **Télécharge Docker Desktop** 👉 [Lien officiel](https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe)  
+2. **Lance l’installation** et coche **"Use WSL 2 instead of Hyper-V"** si disponible.  
+3. **Ajoute Docker au `Path`** (si nécessaire) :
+
+```powershell
+[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";C:\Program Files\Docker\Docker", [System.EnvironmentVariableTarget]::Machine)
+```
+
+---
+
+###  1.3 Vérifier Docker  
+Vérifie que Docker fonctionne :
+
+```powershell
+docker version
+```
+
+Si tout est correct, tu verras la version de **Docker Engine** et **Docker Client**.
+
+---
+
+### Installation et configuration de Graylog avec Docker
+
+###  2.1 Créer un fichier `docker-compose.yml`  
+Dans un dossier, crée un fichier `docker-compose.yml` et ajoute :
+
+```yaml
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+
+  opensearch:
+    image: opensearchproject/opensearch:2.3.0
+    container_name: opensearch
+    environment:
+      - discovery.type=single-node
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "DISABLE_INSTALL_DEMO_CONFIG=true"
+      - "DISABLE_SECURITY_PLUGIN=true"
+    volumes:
+      - os_data:/usr/share/opensearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+
+  graylog:
+    image: graylog/graylog:6.1
+    container_name: graylog
+    restart: always
+    environment:
+      - GRAYLOG_PASSWORD_SECRET=super-secret-key
+      - GRAYLOG_ROOT_PASSWORD_SHA2=hashed-password
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9000/
+    depends_on:
+      - mongo
+      - opensearch
+    ports:
+      - "9000:9000"
+      - "1514:1514"
+      - "12201:12201"
+
+volumes:
+  mongo_data:
+  os_data:
+```
+
+📌 **Remarque :**  
+- Remplace `hashed-password` par un mot de passe SHA2 généré avec :  
+  ```powershell
+  echo -n "tonMotDePasse" | openssl sha256
   ```
-  http://<IP-DU-SERVEUR>:9000
-  ```
-- Connectez-vous avec l'utilisateur `admin` et le mot de passe défini précédemment.
+- Change `super-secret-key` par une clé sécurisée.
 
-## 4. Configuration des Logs des Serveurs
-- Ajoutez des **Inputs** pour recevoir les logs via Syslog ou GELF.
-- Configurez les serveurs pour envoyer leurs logs vers Graylog.
+---
 
-Graylog est maintenant installé et fonctionnel sur votre Windows Server 2022 ! 🎉
+###  2.2 Démarrer Graylog
+
+Dans le dossier où se trouve `docker-compose.yml`, exécute :
+
+```powershell
+docker-compose up -d
+```
+
+📌 **Explication** :  
+- `-d` = Exécuter en arrière-plan.  
+- Cette commande va télécharger et démarrer **MongoDB, OpenSearch et Graylog**.
+
+---
+
+###  2.3 Vérifier les conteneurs  
+Exécute :
+
+```powershell
+docker ps
+```
+
+Tu devrais voir `mongo`, `opensearch` et `graylog` en cours d’exécution.
+
+---
+
+###  2.4 Accéder à Graylog  
+Ouvre un navigateur et va sur :  
+👉 **http://127.0.0.1:9000**  
+
+🔑 **Identifiants par défaut** :
+- **Utilisateur** : `admin`
+- **Mot de passe** : celui défini dans `GRAYLOG_ROOT_PASSWORD_SHA2`
+
+---
+
+##  Conclusion  
+Graylog est maintenant installé sur **Windows Server 2022** avec **Docker** ! 🚀  
+Besoin d’aide pour configurer des sources de logs ? 😊
+
+
 ```
 
