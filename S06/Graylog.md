@@ -1,4 +1,3 @@
-```markdown
 # Installation de Graylog sur Windows Server 2022
 
 ## 1. Prérequis
