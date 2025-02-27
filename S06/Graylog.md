@@ -172,12 +172,15 @@ sudo ufw allow 27017/tcp
 Accédez à Graylog via :
 
 ```
-http://<IP_SERVEUR>:9000
+http://10.10.8.4:8580
 ```
 
 Identifiants par défaut :
 
 - **Utilisateur** : `admin`
 - **Mot de passe** : celui défini dans `root_password_sha2`
+
+![WUI](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S06/Graylog/13_WUI.PNG)
+
 
 
