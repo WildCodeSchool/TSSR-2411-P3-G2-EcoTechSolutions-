@@ -6,7 +6,7 @@
 ## 2) Convention de nommage
 
 ### 1. Les Compte utilisateurs
-- **Le Format des noms d’utilisateur** : La structure sera sous la forme "Prénom.Nom" (Exemple : Camille.bataille)
+- **Le Format des noms d’utilisateur** : La structure sera sous la forme "PNom" (Exemple : CBataille)
 - **Les Comptes administrateurs** : La structure sera sous la forme "admin-[NomDépartement]" (Exemple : admin-rh)
 - **Les Comptes génériques ou de testStructure** : La structure sera sous la forme "test-[Numéro]" (Exemple : test-01)
 
