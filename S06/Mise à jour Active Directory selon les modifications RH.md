@@ -124,6 +124,7 @@ foreach ($user in $users) {
    - **Onglet Général** : Modifier le **nom** (mariage, changement de responsable, etc.).
      - Modifier le **nom** (ex. Alexis Fisher → Alexis Fisher-Drumond).
    - Cliquer sur **Appliquer**, puis **OK**.
+![Mise à jour AD](https://raw.githubusercontent.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/main/Ressources/Images/S06/Mise%20%C3%A0%20jour%20Active%20Directory%20selon%20les%20modifications%20RH/AD_ModifNom_suiteMariage.png)
 
 ---
 
@@ -138,6 +139,7 @@ foreach ($user in $users) {
    - Créer une **OU "Anciens employés"** (si non existante).
    - Déplacer les comptes désactivés par **glisser-déposer** ou :
      - Clic droit → **Déplacer** → Sélectionner la OU cible → **OK**.
+![Désactivation Compte AD](https://raw.githubusercontent.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/main/Ressources/Images/S06/Mise%20%C3%A0%20jour%20Active%20Directory%20selon%20les%20modifications%20RH/AD_D%C3%A9sactivation_Compte.png)
 
 ---
 
@@ -148,6 +150,7 @@ foreach ($user in $users) {
 1. Aller dans la **OU contenant les départements**.
 2. **Renommer la OU** :
    - Clic droit sur `Finance et Comptabilité` → **Renommer** → `Direction Financière`.
+![Changement de Nom Service AD](https://raw.githubusercontent.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/main/Ressources/Images/S06/Mise%20%C3%A0%20jour%20Active%20Directory%20selon%20les%20modifications%20RH/AD_Chgt_NomService.png)
 
 
 ### ❌ Suppression d’un service  
@@ -157,6 +160,7 @@ foreach ($user in $users) {
 2. **Déplacer les utilisateurs vers "Finance"** :
    - Aller dans `Fiscalité`, sélectionner tous les comptes utilisateurs (`Ctrl + clic` pour multi-sélection).
    - Clic droit → **Déplacer** → Choisir la OU `Finance` → **OK**.
+![Suppression Fiscalité AD](https://raw.githubusercontent.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/main/Ressources/Images/S06/Mise%20%C3%A0%20jour%20Active%20Directory%20selon%20les%20modifications%20RH/AD_Suppression_Fiscalit%C3%A9.png)
 
 ---
 
@@ -169,10 +173,13 @@ foreach ($user in $users) {
    - **Onglet Organisation** :
      - **Poste** : Responsable B2B.
      - **Manager** : Sélectionner son supérieur dans AD.
+![AD Iko Loubert](https://raw.githubusercontent.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/main/Ressources/Images/S06/Mise%20%C3%A0%20jour%20Active%20Directory%20selon%20les%20modifications%20RH/AD_IkoLoubert.png)
+
 
 ### 🔄 Gestion des subalternes suite au départ de Lana Wong
 1. Ouvrir **Marina Brun** (nouvelle Directrice Commerciale).
 2. Aller dans **Organisation** → **Définir comme responsable** des employés de Lana Wong.
+![AD Marina Brun](https://raw.githubusercontent.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/main/Ressources/Images/S06/Mise%20%C3%A0%20jour%20Active%20Directory%20selon%20les%20modifications%20RH/AD_MarinaBrun.png)
 
 ---
 
