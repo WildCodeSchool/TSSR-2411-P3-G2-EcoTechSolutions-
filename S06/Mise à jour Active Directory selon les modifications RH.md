@@ -116,83 +116,69 @@ foreach ($user in $users) {
 
 </pre> 
 
-## 2. Modifications des informations des utilisateurs
-### Changement de nom des collaborateurs mariés
-1. Modifier le nom d’un utilisateur :
-   ```powershell
-   Set-ADUser -Identity "jdoe" -GivenName "Jane" -Surname "Dupont" -DisplayName "Jane Dupont" -UserPrincipalName "jdupont@domaine.local"
-   ```
-2. Vérifier la modification :
-   ```powershell
-   Get-ADUser -Identity "jdupont"
-   ```
+## 📌 2. Modification des informations des utilisateurs
+1. **Ouvrir la fiche d'un utilisateur** :
+   - Aller dans la **OU concernée**.
+   - Double-cliquer sur l’utilisateur.
+2. **Modifier les informations** :
+   - **Onglet Général** : Modifier le **nom** (mariage, changement de responsable, etc.).
+   - **Onglet Organisation** :
+     - Modifier le **poste** (ex. Marina Brun → Directrice Commerciale).
+     - Modifier le **responsable hiérarchique** (`Manager`).
+   - Cliquer sur **Appliquer**, puis **OK**.
 
 ---
 
-## 3. Changement des départements et services
-### Modification du nom du département "Finance et Comptabilité"
-1. Modifier le département dans AD pour tous les employés concernés :
-   ```powershell
-   Get-ADUser -Filter "Department -eq 'Finance et Comptabilité'" | ForEach-Object {
-       Set-ADUser -Identity $_.SamAccountName -Department "Direction financière"
-   }
-   ```
-
-### Suppression du service "Fiscalité" et transfert des employés
-1. Modifier les utilisateurs pour qu'ils appartiennent désormais à "Finance" :
-   ```powershell
-   Get-ADUser -Filter "Department -eq 'Direction financière' -and Title -eq 'Fiscalité'" | ForEach-Object {
-       Set-ADUser -Identity $_.SamAccountName -Title "Finance"
-   }
-   ```
+## 📌 3. Gestion des départs et désactivation des comptes
+1. **Trouver les utilisateurs quittant l’entreprise** :
+   - Aller dans l’OU des employés.
+   - Double-cliquer sur l’utilisateur concerné.
+2. **Désactiver le compte** :
+   - **Onglet Compte** → Cocher **"Désactiver le compte"**.
+   - Valider avec **OK**.
+3. **Déplacer les comptes désactivés** (optionnel) :
+   - Créer une **OU "Anciens employés"** (si non existante).
+   - Déplacer les comptes désactivés par **glisser-déposer** ou :
+     - Clic droit → **Déplacer** → Sélectionner la OU cible → **OK**.
 
 ---
 
-## 4. Gestion des départs
-### Désactivation des comptes AD
-1. Désactiver un compte utilisateur :
-   ```powershell
-   Disable-ADAccount -Identity "lancien"
-   ```
-2. Désactiver plusieurs comptes à partir d’une liste :
-   ```powershell
-   Import-Csv "depart_utilisateurs.csv" | ForEach-Object {
-       Disable-ADAccount -Identity $_.SamAccountName
-   }
-   ```
-3. Vérifier les comptes désactivés :
-   ```powershell
-   Get-ADUser -Filter "Enabled -eq 'False'"
-   ```
+## 📌 4. Modification des noms et services
 
-### Suppression des données associées
-- Déplacer les fichiers vers un stockage d’archive si nécessaire.
-- Supprimer les boîtes mails et accès aux ressources partagées.
+### 🏢 Changement du nom d’un département  
+**(Finance et Comptabilité → Direction Financière)**
+1. Aller dans la **OU contenant les départements**.
+2. **Renommer la OU** :
+   - Clic droit sur `Finance et Comptabilité` → **Renommer** → `Direction Financière`.
+
+### ❌ Suppression d’un service  
+**(Fiscalité fusionné avec Finance)**
+1. **Supprimer la OU "Fiscalité"** :
+   - Clic droit sur la OU `Fiscalité` → **Supprimer**.
+2. **Déplacer les utilisateurs vers "Finance"** :
+   - Aller dans `Fiscalité`, sélectionner tous les comptes utilisateurs (`Ctrl + clic` pour multi-sélection).
+   - Clic droit → **Déplacer** → Choisir la OU `Finance` → **OK**.
 
 ---
 
-## 5. Mise à jour de l'organigramme
-### Changement de directrice commerciale
-1. Modifier le manager de tous les subalternes de Lana Wong vers Marina Brun :
-   ```powershell
-   Get-ADUser -Filter "Manager -eq 'Lana Wong'" | ForEach-Object {
-       Set-ADUser -Identity $_.SamAccountName -Manager "Marina Brun"
-   }
-   ```
+## 📌 5. Gestion de la nouvelle hiérarchie
 
-### Ajout d'Iko Loubert comme responsable B2B
-1. Définir son rôle dans l'organigramme :
-   ```powershell
-   Set-ADUser -Identity "iloubert" -Manager "Marina Brun"
-   ```
-2. Vérifier la mise à jour :
-   ```powershell
-   Get-ADUser -Identity "iloubert" -Properties Manager
-   ```
+### ✅ Ajout d’Iko Loubert comme responsable B2B
+1. Aller dans la **OU "Service Commercial"**.
+2. **Créer le compte utilisateur d’Iko Loubert** (cf. Étape 2).
+3. **Définir son poste et responsable hiérarchique** :
+   - **Onglet Organisation** :
+     - **Poste** : Responsable B2B.
+     - **Manager** : Sélectionner son supérieur dans AD.
+
+### 🔄 Gestion des subalternes suite au départ de Lana Wong
+1. Ouvrir **Marina Brun** (nouvelle Directrice Commerciale).
+2. Aller dans **Organisation** → **Définir comme responsable** des employés de Lana Wong.
 
 ---
 
-## Conclusion
-En suivant ces étapes, l’Active Directory sera mis à jour conformément aux nouvelles directives RH. Pensez à toujours vérifier les modifications avant validation définitive.
-```
+## 📌 6. Vérification et mise à jour du fichier `S06_EcoTechSolutions.xlsx`
+- Ouvrir le fichier et **vérifier que toutes les modifications AD sont bien listées**.
+- Ajouter les **nouvelles affectations et changements** dans l’organigramme.
+- Transmettre aux RH si nécessaire.
 
