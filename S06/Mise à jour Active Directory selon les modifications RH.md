@@ -149,6 +149,7 @@ foreach ($user in $users) {
 2. **Renommer la OU** :
    - Clic droit sur `Finance et Comptabilité` → **Renommer** → `Direction Financière`.
 
+
 ### ❌ Suppression d’un service  
 **(Fiscalité fusionné avec Finance)**
 1. **Supprimer la OU "Fiscalité"** :
@@ -174,9 +175,4 @@ foreach ($user in $users) {
 2. Aller dans **Organisation** → **Définir comme responsable** des employés de Lana Wong.
 
 ---
-
-## 📌 6. Vérification et mise à jour du fichier `S06_EcoTechSolutions.xlsx`
-- Ouvrir le fichier et **vérifier que toutes les modifications AD sont bien listées**.
-- Ajouter les **nouvelles affectations et changements** dans l’organigramme.
-- Transmettre aux RH si nécessaire.
 
