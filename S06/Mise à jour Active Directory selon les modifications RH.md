@@ -122,9 +122,7 @@ foreach ($user in $users) {
    - Double-cliquer sur l’utilisateur.
 2. **Modifier les informations** :
    - **Onglet Général** : Modifier le **nom** (mariage, changement de responsable, etc.).
-   - **Onglet Organisation** :
-     - Modifier le **poste** (ex. Marina Brun → Directrice Commerciale).
-     - Modifier le **responsable hiérarchique** (`Manager`).
+     - Modifier le **nom** (ex. Alexis Fisher → Alexis Fisher-Drumond).
    - Cliquer sur **Appliquer**, puis **OK**.
 
 ---
