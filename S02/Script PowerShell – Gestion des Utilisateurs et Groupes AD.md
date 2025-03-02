@@ -158,3 +158,92 @@ foreach ($user in $users) {
 }
 
 </pre> 
+
+Voici une autre version du script mis à jour avec la gestion des doublons du SAMAccountName. Si un SAMAccountName est déjà pris, il sera incrémenté avec un chiffre à la fin (ex. jdoe, jdoe1, jdoe2, etc.).
+
+<pre> 
+$csvPath = "C:\Users\Administrator.WINSERV1\Desktop\CSV\s01_EcoTechSolutions.csv"
+
+# Importation des données
+$users = Import-Csv -Path $csvPath -Delimiter ","
+
+foreach ($user in $users) {
+    $firstName = $user.Prenom
+    $lastName = $user.Nom
+    $fullName = "$firstName $lastName"
+    $baseSamAccountName = "$($firstName[0])$lastName" -replace "[^a-zA-Z0-9]", ""
+    $samAccountName = $baseSamAccountName
+    $counter = 1
+
+    # Vérifier si le samAccountName existe déjà et le modifier si nécessaire
+    while (Get-ADUser -Filter {SamAccountName -eq $samAccountName} -ErrorAction SilentlyContinue) {
+        $samAccountName = "$baseSamAccountName$counter"
+        $counter++
+    }
+
+    $department = $user.Departement
+    $service = $user.Service
+    $site = $user.Site
+
+    # Chemin des OUs
+    $ouSite = "OU=$site,DC=ecotechsolutions,DC=com"
+    $ouUsers = "OU=Utilisateurs,$ouSite"
+    $ouDepartment = "OU=$department,$ouUsers"
+    $ouService = "OU=$service,$ouDepartment"
+    $ouGroupes = "OU=Groupes,$ouSite"
+
+    # Vérifier et créer les OUs si elles n'existent pas
+    function Ensure-OUExists {
+        param ($ouPath, $ouName, $parentPath)
+        if (-not (Get-ADOrganizationalUnit -Filter {Name -eq $ouName -and DistinguishedName -like "*$parentPath"} -ErrorAction SilentlyContinue)) {
+            New-ADOrganizationalUnit -Name $ouName -Path $parentPath -ErrorAction Stop
+            Write-Host "OU $ouName créée."
+        }
+    }
+
+    Ensure-OUExists -ouPath $ouSite -ouName $site -parentPath "DC=ecotechsolutions,DC=com"
+    Ensure-OUExists -ouPath $ouUsers -ouName "Utilisateurs" -parentPath $ouSite
+    Ensure-OUExists -ouPath $ouDepartment -ouName $department -parentPath $ouUsers
+    Ensure-OUExists -ouPath $ouService -ouName $service -parentPath $ouDepartment
+
+    # Création de l'utilisateur
+    Write-Host "Création de l'utilisateur : $fullName avec SAMAccountName: $samAccountName dans l'OU $ouService"
+    New-ADUser -SamAccountName $samAccountName -UserPrincipalName "$samAccountName@ecotechsolutions.com" `
+        -Name $fullName -GivenName $firstName -Surname $lastName -Department $department `
+        -Path $ouService -Enabled $true -AccountPassword (ConvertTo-SecureString "Azerty1*" -AsPlainText -Force) -ErrorAction SilentlyContinue
+    if ($?) {
+        Set-ADUser -Identity $samAccountName -Description $user.fonction -ErrorAction SilentlyContinue
+        Write-Host "Utilisateur $fullName créé avec succès avec le SAMAccountName : $samAccountName."
+    } else {
+        Write-Host "Erreur lors de la création de l'utilisateur $fullName."
+    }
+
+    # Gestion des groupes
+    function Ensure-GroupExists {
+        param ($groupName, $ouPath)
+        if (-not (Get-ADGroup -Filter {Name -eq $groupName} -ErrorAction SilentlyContinue)) {
+            New-ADGroup -Name $groupName -GroupScope Global -Path $ouPath -ErrorAction SilentlyContinue
+            Write-Host "Groupe $groupName créé."
+        }
+    }
+
+    function Add-UserToGroup {
+        param ($groupName, $samAccountName)
+        if (-not (Get-ADGroupMember -Identity $groupName -ErrorAction SilentlyContinue | Where-Object { $_.SamAccountName -eq $samAccountName })) {
+            Add-ADGroupMember -Identity $groupName -Members $samAccountName -ErrorAction SilentlyContinue
+            Write-Host "Utilisateur $samAccountName ajouté au groupe $groupName."
+        }
+    }
+
+    $groupName = "grp-$department"
+    $securityGroup = "grp-$service"
+
+    Ensure-GroupExists -groupName $groupName -ouPath $ouGroupes
+    Add-UserToGroup -groupName $groupName -samAccountName $samAccountName
+
+    Ensure-GroupExists -groupName $securityGroup -ouPath $ouGroupes
+    Add-UserToGroup -groupName $securityGroup -samAccountName $samAccountName
+}
+
+</pre> 
+
