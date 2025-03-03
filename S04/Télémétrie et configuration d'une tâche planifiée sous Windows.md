@@ -1,4 +1,4 @@
-# I) Télémétrie et configuration d'une tâche planifiée sous Windows
+# I) Télémétrie et configuration d'une tâche planifiée sous Windows Server 2022
 
 
 ---
