@@ -21,6 +21,9 @@
 - Vérifier que **les unités organisationnelles (OU)** sont bien prises en compte.
 - Automatiser la synchronisation pour éviter une gestion manuelle.
 
+## 1️⃣.1️⃣ Voici le script powershell pour la synchronisation de L'AD avec GLPI : 
+
+Lorem ipsum
 ---
 
 ## 2️⃣ Gestion des incidents et ticketing
