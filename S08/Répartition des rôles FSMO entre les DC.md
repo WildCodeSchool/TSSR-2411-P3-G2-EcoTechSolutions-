@@ -12,15 +12,15 @@ Initialement, tous les rôles sont généralement sur le **premier DC** créé. 
 
 ### b) Exemple de répartition
 
-- **DC1 :**  
+- **DC1 : SRV-AD-01 :**  
   - Schema Master  
   - Domain Naming Master  
 
-- **DC2 :**  
+- **DC2 : SRV-AD-02-TEST **  
   - PDC Emulator  
   - RID Master  
 
-- **DC3 :**  
+- **DC3 : SRV-AD-03-TEST **  
   - Infrastructure Master  
 
 Cette configuration est courante, mais vous pouvez bien sûr adopter une autre répartition.
