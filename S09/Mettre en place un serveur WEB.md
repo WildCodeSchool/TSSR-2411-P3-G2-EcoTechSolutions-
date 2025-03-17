@@ -134,7 +134,7 @@ sudo nano /var/www/monsite/index.html
 Créez un fichier de configuration pour votre site :
 
 ```bash
-sudo nano /etc/apache2/sites-available/monsite.conf
+sudo nano /etc/apache2/sites-available/echotechsolutions.conf
 ```
 
 Ajoutez ce contenu :
@@ -145,7 +145,7 @@ Ajoutez ce contenu :
 Activez le site :
 
 ```bash
-sudo a2ensite monsite.conf
+sudo a2ensite echotechsolutions.conf
 ```
 
 Désactivez le site par défaut (optionnel) :
