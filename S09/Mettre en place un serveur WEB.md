@@ -103,19 +103,19 @@ hostname -I
 ### 5.1 Création d’un répertoire pour le site web
 
 ```bash
-sudo mkdir -p /var/www/monsite
+sudo mkdir -p /var/www/echotechsolutions
 ```
 
 Attribuez les droits à votre utilisateur :
 
 ```bash
-sudo chown -R $USER:$USER /var/www/monsite
+sudo chown -R $USER:$USER /var/www/echotechsolutions
 ```
 
 Définissez les bonnes permissions :
 
 ```bash
-sudo chmod -R 755 /var/www/monsite
+sudo chmod -R 755 /var/www/echotechsolutions
 ```
 
 ### 5.2 Création d’une page d’accueil
@@ -123,7 +123,7 @@ sudo chmod -R 755 /var/www/monsite
 Créez un fichier `index.html` :
 
 ```bash
-sudo nano /var/www/monsite/index.html
+sudo nano /var/www/echotechsolutions/index.html
 ```
 
 - ![Page basique](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S09/Mettre%20en%20place%20un%20serveur%20WEB/06_Page_Apache.png)
