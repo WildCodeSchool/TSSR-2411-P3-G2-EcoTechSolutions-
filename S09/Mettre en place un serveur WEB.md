@@ -180,7 +180,7 @@ sudo systemctl restart apache2
 
 ---
 
-## 🎯 Étape 8 : Test final
+## 🎯 Étape 7 : Test final
 
 - Ouvrez un navigateur et tapez **http://10.10.8.57**
 - Vérifiez le bon fonctionnement avec :
