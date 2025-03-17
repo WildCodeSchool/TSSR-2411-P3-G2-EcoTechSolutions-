@@ -16,6 +16,9 @@ Avant toute installation, mettez à jour votre système avec :
 sudo apt update && sudo apt upgrade -y
 ```
 
+- ![Mise à jour du système](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S09/Mettre%20en%20place%20un%20serveur%20WEB/01_Mise_a_jour_systeme.png)
+
+
 Vérifiez que votre système est bien à jour :
 
 ```bash
@@ -32,11 +35,16 @@ Installez Apache avec la commande :
 sudo apt install apache2 -y
 ```
 
+- ![Installation d'apache](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S09/Mettre%20en%20place%20un%20serveur%20WEB/02_Install_Apache.png)
+
+
 Vérifiez que le service est bien démarré :
 
 ```bash
 sudo systemctl status apache2
 ```
+- ![Etat service apache](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S09/Mettre%20en%20place%20un%20serveur%20WEB/03_Etat_service-apache.png)
+
 
 Si Apache n'est pas actif, démarrez-le :
 
@@ -49,6 +57,8 @@ Et activez-le au démarrage :
 ```bash
 sudo systemctl enable apache2
 ```
+
+- ![Activation apache démarrage](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S09/Mettre%20en%20place%20un%20serveur%20WEB/04_Activation_demarrage.png)
 
 ---
 
@@ -73,7 +83,7 @@ sudo ufw status
 Pour vérifier que votre serveur Apache fonctionne, ouvrez un navigateur et entrez l’**IP** de votre serveur dans la barre d’adresse :
 
 ```
-http://votre_ip_serveur
+http://10.10.8.57
 ```
 
 Si tout est correct, vous devriez voir la page de bienvenue d'Apache.
@@ -83,6 +93,8 @@ Vous pouvez aussi utiliser la commande suivante pour récupérer l'IP de votre s
 ```bash
 hostname -I
 ```
+
+- ![Activation apache démarrage](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S09/Mettre%20en%20place%20un%20serveur%20WEB/05_IP.png)
 
 ---
 
@@ -114,21 +126,8 @@ Créez un fichier `index.html` :
 sudo nano /var/www/monsite/index.html
 ```
 
-Ajoutez ce contenu :
+- ![Page basique](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S09/Mettre%20en%20place%20un%20serveur%20WEB/06_Page_Apache.png)
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bienvenue sur mon serveur Apache</title>
-</head>
-<body>
-    <h1>Apache est bien installé sur Debian 12.7.1 ! 🎉</h1>
-</body>
-</html>
-```
-
-Enregistrez avec `CTRL + X`, puis `Y`, et `ENTRÉE`.
 
 ### 5.3 Configuration de l’hôte virtuel
 
@@ -140,16 +139,8 @@ sudo nano /etc/apache2/sites-available/monsite.conf
 
 Ajoutez ce contenu :
 
-```apache
-<VirtualHost *:80>
-    ServerAdmin admin@monsite.com
-    DocumentRoot /var/www/monsite
-    ServerName monsite.com
-    ServerAlias www.monsite.com
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-```
+- ![VirtualHost](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S09/Mettre%20en%20place%20un%20serveur%20WEB/08_VirtualHost.png)
+
 
 Activez le site :
 
@@ -169,33 +160,11 @@ Rechargez Apache :
 sudo systemctl reload apache2
 ```
 
----
-
-## 🔒 Étape 6 : Activation du HTTPS avec Certbot (SSL)
-
-Installez Certbot et le module Apache :
-
-```bash
-sudo apt install certbot python3-certbot-apache -y
-```
-
-Générez un certificat SSL gratuit avec Let’s Encrypt :
-
-```bash
-sudo certbot --apache
-```
-
-Suivez les instructions et choisissez l’option **"Rediriger tout le trafic HTTP vers HTTPS"**.
-
-Testez le renouvellement automatique du certificat :
-
-```bash
-sudo certbot renew --dry-run
-```
+- ![Activation site default](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S09/Mettre%20en%20place%20un%20serveur%20WEB/09_Activation_Site_default.png)
 
 ---
 
-## 📜 Étape 7 : Vérification et redémarrage du serveur
+## 📜 Étape 6 : Vérification et redémarrage du serveur
 
 Vérifiez la configuration Apache :
 
@@ -213,19 +182,14 @@ sudo systemctl restart apache2
 
 ## 🎯 Étape 8 : Test final
 
-- Ouvrez un navigateur et tapez **http://monsite.com**
-- Si vous avez activé SSL, testez aussi **https://monsite.com**
+- Ouvrez un navigateur et tapez **http://10.10.8.57**
 - Vérifiez le bon fonctionnement avec :
 
 ```bash
 curl -I http://localhost
 ```
 
----
-
-## 🎉 Conclusion
-
-Vous avez maintenant un **serveur web Apache** fonctionnel sur **Debian 12.7.1** ! 🚀  
-Si vous souhaitez héberger plusieurs sites, vous pouvez **répéter l'étape 5** pour chaque domaine.
+- ![Activation site default](https://github.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/blob/main/Ressources/Images/S09/Mettre%20en%20place%20un%20serveur%20WEB/10_Web.png)
 
 ---
+
