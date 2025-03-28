@@ -79,6 +79,8 @@ nikto -h http://10.10.8.57 -output ~/rapport_nikto.html -Format html
 
 ## 5️⃣ Résultats de l’audit Nikto du 28/03/2025
 
+![Résultat audit Nikto](https://raw.githubusercontent.com/WildCodeSchool/TSSR-2411-P3-G2-EcoTechSolutions-/main/Ressources/Images/S10/Nikto/01.png)
+
 L’audit a été réalisé sur le serveur `10.10.8.57` avec **Nikto v2.5.0**. Voici une synthèse des vulnérabilités détectées et de leur signification.
 
 ### ✅ Détails techniques observés :
